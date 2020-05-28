@@ -1,4 +1,4 @@
-import os
+import os, csv
 
 from flask import Flask, session
 from flask_session import Session
@@ -20,7 +20,20 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+stops = []
+
+class Stop:
+	def __init__(self, id, name, dur):
+		self.id = id
+		self.name = name
+		self.dur=dur
+
+with open("stopdata.csv") as f:
+	data = csv.reader(f)
+	for row in data:
+		stops.append(Stop(row[0], row[2], row[2]))
+ 
 
 @app.route("/")
-def index():
-    return "Project 1: TODO"
+def home():
+    return render_template("home.html", stops = stops)
