@@ -9,13 +9,32 @@ body{
 	padding: 15px;
 	font-size: 50px;
 }
+
 .subtitle{
 	text-align: center;
 	padding: 10px;
 	font-size: 18px;
 }
+
 .choose{
 	text-align: left;
 	padding: 15px;
+	padding-left: 30px;
 	font-size: 30px;
+}
+
+button{
+	width: 70px;
+	height: 50px;
+	font-size:25px !important;
+}
+
+.form-group{
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+}
+
+.form-control{
+	height: 50px !important;
+	font-size: 20px !important;
 }
