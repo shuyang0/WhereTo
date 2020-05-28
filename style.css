@@ -1,0 +1,21 @@
+body{
+	background-color: rgb(33, 41, 64) !important;
+	font-family:calibri, san-serif !important;
+	color: white !important;
+}
+
+.title{
+	text-align: center;
+	padding: 15px;
+	font-size: 50px;
+}
+.subtitle{
+	text-align: center;
+	padding: 10px;
+	font-size: 18px;
+}
+.choose{
+	text-align: left;
+	padding: 15px;
+	font-size: 30px;
+}
