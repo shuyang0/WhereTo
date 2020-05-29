@@ -81,9 +81,7 @@ def shortestPath(startID, endID):
         totalDur += pathDurationsDict[(parent[end], end)] + stopDurationsDict[parent[end]]
         end = parent[end]
         path.append(stopNamesDict[end])
-    totalDur -= stopDurationsDict[end]
+    if len(path) > 1:
+        totalDur -= stopDurationsDict[end]
     path.reverse()
     return path, totalDur
-
-searchPath(2, 22)
-print(shortestPath(2, 22))

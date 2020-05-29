@@ -1,5 +1,5 @@
 Stop ID,Stop Name,Stop Duration
-0,Prince George's Park,30
+0,Prince George's Park,420
 1,PGP Hse 15,30
 2,TCOMS,30
 3,Opp HSSML,30
@@ -26,7 +26,7 @@ Stop ID,Stop Name,Stop Duration
 24,PGP Hse 7,30
 25,University Town,45
 26,Prince George's Park Residence,30
-27,Kent Ridge Bus Terminal ,30
+27,Kent Ridge Bus Terminal ,600
 28,Raffles Hall ,30
 29,EA,30
 30,The Japanese Primary School,30
