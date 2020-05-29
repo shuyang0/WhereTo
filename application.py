@@ -29,9 +29,11 @@ def home():
 def go():
 	start_id = int(request.form.get("start"))
 	end_id = int(request.form.get("end"))
+	start_name = stopNamesDict[start_id]
+	end_name = stopNamesDict[end_id]
 	searchPath(start_id, end_id)
 	path, totalDur = shortestPath(start_id, end_id)
 	mins = totalDur // 60
 	secs = totalDur % 60
 	# return str(path)
-	return render_template("go.html", start = start_id, end = end_id, mins = mins, secs = secs)
+	return render_template("go.html", start = start_name, end = end_name, mins = mins, secs = secs, path = path)
