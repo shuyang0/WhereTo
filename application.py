@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from dijkstra import createGraph
+from dijkstra import *
 
 app = Flask(__name__)
 
@@ -23,14 +23,15 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def home():
-    return render_template("home.html", stops = createGraph())
+    return render_template("home.html", stops = createGraph())	
 
-@app.route("/direct", methods = ["POST"])
-def direct():
-	start_id = request.form.get("start_id")
-	end_id = request.form.get("end_id")
-	return f"{start_id} {end_id}"
-
-def search(start_id, end_id):
-	return "Hello"
-	
+@app.route("/go",  methods =['POST'])
+def go():
+	start_id = int(request.form.get("start"))
+	end_id = int(request.form.get("end"))
+	searchPath(start_id, end_id)
+	path, totalDur = shortestPath(start_id, end_id)
+	mins = totalDur // 60
+	secs = totalDur % 60
+	# return str(path)
+	return render_template("go.html", start = start_id, end = end_id, mins = mins, secs = secs)

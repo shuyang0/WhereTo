@@ -59,7 +59,6 @@ def relax(edge):
         else:
             pq.additem(stop2, distTo[stop2])
 
-
 def searchPath(startID, endID):
     distTo[startID] = 0
     pq[startID] = 0
