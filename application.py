@@ -1,9 +1,10 @@
 import os, csv
 
-from flask import Flask, session, render_template
+from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from dijkstra import createGraph
 
 app = Flask(__name__)
 
@@ -20,24 +21,16 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-
-stops = []
-
-class Stop:
-	def __init__(self, id, name, dur):
-		self.id = id
-		self.name = name
-		self.dur = dur
-
-with open("stopdata.csv") as f:
-	data = csv.reader(f)
-	for row in data:
-		stops.append(Stop(row[0], row[1], row[2]))
-
 @app.route("/")
 def home():
-    return render_template("home.html", stops = stops)
+    return render_template("home.html", stops = createGraph())
 
-@app.route("/direct")
+@app.route("/direct", methods = ["POST"])
 def direct():
- 	return "hello world!!!"
+	start_id = request.form.get("start_id")
+	end_id = request.form.get("end_id")
+	return f"{start_id} {end_id}"
+
+def search(start_id, end_id):
+	return "Hello"
+	

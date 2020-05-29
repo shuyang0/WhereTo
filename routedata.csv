@@ -1,46 +1,47 @@
-Prince George's Park,Kent Ridge MRT,165,A1 D2
-Kent Ridge MRT,LT27,90,A1 D2
-LT27,UHall,55,A1 C D2
-UHall,Opp University Health Centre,85,A1 C D2
-Opp University Health Centre,YIH,50,A1
-YIH,Central Library,70,A1 B1 D1
-Central Library,LT13,80,A1 B1 D1
-LT13,AS5,35,A1 B1 D1
-AS5,COM2,90,A1 D1
-COM2,BIZ 2,160,A1 D1
-BIZ 2,Opp TCOMS,50,A1
-Opp TCOMS,PGP Hse 7,25,A1
-PGP Hse 7,Prince George's Park,55,A1
-Prince George's Park,PGP Hse 15,45,A2
-PGP Hse 15,TCOMS,20,A2
-TCOMS,Opp HSSML,50,A2
-Opp HSSML,Opp NUSS,80,A2 B2 D1
-Opp NUSS,COM2,85,A2 D1
-COM2,Ventus (Opp LT13),125,A2 D1
-Ventus (Opp LT13),Information Technology,95,A2 B2 D1
-Information Technology,Opp YIH,40,A2 B1 B2 D1
-Opp YIH,Museum,100,A2 D1
-Museum,University Health Centre,95,A2
-University Health Centre,Opp UHall,60,A2 C
-Opp UHall,S17,65,A2 C D2
-S17,Opp Kent Ridge MRT,105,A2 D2
-Opp Kent Ridge MRT,Prince George's Park,215,A2
-Kent Ridge Bus Terminal ,Information Technology,170,B1
-Opp YIH,University Town,120,B1 B2
-University Town,YIH,170,B1 D1
-AS5,BIZ 2,90,B1
-Opp NUSS,Ventus (Opp LT13),65,B2
-University Town,Raffles Hall ,150,B2 C
-Raffles Hall ,EA,60,B2 C
-EA,Kent Ridge Bus Terminal ,80,B2 C
-Kent Ridge Bus Terminal ,The Japanese Primary School,115,C
-The Japanese Primary School,Kent Vale ,60,C
-Kent Vale ,Museum,150,C
-Museum,University Town,90,C D1 D2
-University Town,University Health Centre,185,C D2
-S17,LT27,110,C
-Opp University Health Centre,University Town,145,C
-Opp TCOMS,Prince George's Park,70,D2
-Opp University Health Centre,Museum,125,D2
-Opp Kent Ridge MRT,Prince George's Park Residence,155,D2
-Prince George's Park Residence,TCOMS,90,D2
+Start Name ,Start ID,End Name,End ID,Path Duration ,Bus Services
+Prince George's Park,0,Kent Ridge MRT,13,165,A1 D2
+Kent Ridge MRT,13,LT27,14,90,A1 D2
+LT27,14,UHall,15,55,A1 C D2
+UHall,15,Opp University Health Centre,16,85,A1 C D2
+Opp University Health Centre,16,YIH,17,50,A1
+YIH,17,Central Library,18,70,A1 B1 D1
+Central Library,18,LT13,19,80,A1 B1 D1
+LT13,19,AS5,20,35,A1 B1 D1
+AS5,20,COM2,21,90,A1 D1
+COM2,21,BIZ 2,22,160,A1 D1
+BIZ 2,22,Opp TCOMS,23,50,A1
+Opp TCOMS,23,PGP Hse 7,24,25,A1
+PGP Hse 7,24,Prince George's Park,0,55,A1
+Prince George's Park,0,PGP Hse 15,1,45,A2
+PGP Hse 15,1,TCOMS,2,20,A2
+TCOMS,2,Opp HSSML,3,50,A2
+Opp HSSML,3,Opp NUSS,4,80,A2 B2 D1
+Opp NUSS,4,COM2,21,85,A2 D1
+COM2,21,Ventus (Opp LT13),5,125,A2 D1
+Ventus (Opp LT13),5,Information Technology,6,95,A2 B2 D1
+Information Technology,6,Opp YIH,7,40,A2 B1 B2 D1
+Opp YIH,7,Museum,8,100,A2 D1
+Museum,8,University Health Centre,9,95,A2
+University Health Centre,9,Opp UHall,10,60,A2 C
+Opp UHall,10,S17,11,65,A2 C D2
+S17,11,Opp Kent Ridge MRT,12,105,A2 D2
+Opp Kent Ridge MRT,12,Prince George's Park,0,215,A2
+Kent Ridge Bus Terminal ,27,Information Technology,6,170,B1
+Opp YIH,7,University Town,25,120,B1 B2
+University Town,25,YIH,17,170,B1 D1
+AS5,20,BIZ 2,22,90,B1
+Opp NUSS,4,Ventus (Opp LT13),5,65,B2
+University Town,25,Raffles Hall ,28,150,B2 C
+Raffles Hall ,28,EA,29,60,B2 C
+EA,29,Kent Ridge Bus Terminal ,27,80,B2 C
+Kent Ridge Bus Terminal ,27,The Japanese Primary School,30,115,C
+The Japanese Primary School,30,Kent Vale ,31,60,C
+Kent Vale ,31,Museum,8,150,C
+Museum,8,University Town,25,90,C D1 D2
+University Town,25,University Health Centre,9,185,C D2
+S17,11,LT27,14,110,C
+Opp University Health Centre,16,University Town,25,145,C
+Opp TCOMS,23,Prince George's Park,0,70,D2
+Opp University Health Centre,16,Museum,8,125,D2
+Opp Kent Ridge MRT,12,Prince George's Park Residence,26,155,D2
+Prince George's Park Residence,26,TCOMS,2,90,D2
