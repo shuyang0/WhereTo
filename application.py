@@ -38,6 +38,6 @@ with open("stopdata.csv") as f:
 def home():
     return render_template("home.html", stops = stops)
 
-@app.route("/direct")
-def direct():
+@app.route("/go")
+def go():
  	return "hello world!!!"

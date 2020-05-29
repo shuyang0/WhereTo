@@ -1,42 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>NUS WhereTo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
-    </head>
-  
-    <body>
-        <div class="title">Welcome to NUS WhereTo!<div/>
-        <div class="subtitle">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development. </div>
-        <div class="subtitle">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features! </div>
+{% extends "layout.html" %}
 
-        <img src = "{{url_for('static', filename='poster.png')}}" width = 75%>
+{% block body %}
+    <div class="title">Welcome to NUS WhereTo!<div/>
+    <div class="subtitle">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development. </div>
+    <div class="subtitle">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features! </div>
 
-        <form action="{{ url_for('direct') }}" method="post">
-            <div class = "choose"> Choose starting point </div>
-            <div class="form-group">
-                <select class="form-control" name="start_id">
-                    {% for stop in stops %}
-                        <option value="{{ stop.id }}">{{ stop.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+    <img src = "{{url_for('static', filename='poster.png')}}" width = 75%>
 
-            <div class = "choose"> Choose destination </div>
-            <div class="form-group">
-                <select class="form-control" name="end_id">
-                    {% for stop in stops %}
-                        <option value="{{ stop.id }}">{{ stop.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+    <form action="{{ url_for('go') }}" method="post">
+        <div class = "choose"> Choose starting point </div>
+        <div class="form-group">
+            <select class="form-control" name="start_id">
+                {% for stop in stops %}
+                    <option value="{{ stop.id }}">{{ stop.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-            <div class="form-group">
-                <button class="btn btn-primary">Go!</button>
-            </div>
+        <div class = "choose"> Choose destination </div>
+        <div class="form-group">
+            <select class="form-control" name="end_id">
+                {% for stop in stops %}
+                    <option value="{{ stop.id }}">{{ stop.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-        </form>
-    </body>
-</html>
+        <div class="form-group">
+            <button class="btn btn-primary">Go!</button>
+        </div>
+
+    </form>
+
+{% endblock %}
