@@ -23,7 +23,8 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def home():
-    return render_template("home.html", stops = createGraph())	
+	readData()
+	return render_template("home.html", graph = graph)
 
 @app.route("/go",  methods =['POST'])
 def go():
@@ -31,6 +32,7 @@ def go():
 	end_id = int(request.form.get("end"))
 	start_name = stopNamesDict[start_id]
 	end_name = stopNamesDict[end_id]
+	initialiseGraph()
 	searchPath(start_id, end_id)
 	path, totalDur = shortestPath(start_id, end_id)
 	mins = totalDur // 60

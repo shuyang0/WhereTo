@@ -11,7 +11,7 @@
         <div class = "choose"> Choose starting point </div>
         <div class="form-group">
             <select class="form-control" name="start">
-                {% for stop in stops %}
+                {% for stop in graph %}
                     <option value="{{ stop.id }}">{{ stop.name }}</option>
                 {% endfor %}
             </select>
@@ -20,7 +20,7 @@
         <div class = "choose"> Choose destination </div>
         <div class="form-group">
             <select class="form-control" name="end">
-                {% for stop in stops %}
+                {% for stop in graph %}
                     <option value="{{ stop.id }}">{{ stop.name }}</option>
                 {% endfor %}
             </select>

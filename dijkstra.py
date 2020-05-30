@@ -17,14 +17,17 @@ class Edge:
 stopNamesDict = {}
 pathDurationsDict = {}
 stopDurationsDict = {}
+distTo = []
+parent = []
+pq = minpq()
+graph = []
 
-def createGraph():
-    stops = []
+def readData():
     with open("stopdata.csv") as f:
         data = csv.reader(f)
         next(data)
         for row in data:
-            stops.append(Stop(int(row[0]), row[1]))
+            graph.append(Stop(int(row[0]), row[1]))
             stopNamesDict[int(row[0])] = row[1]
             stopDurationsDict[int(row[0])] = int(row[2])
 
@@ -32,19 +35,13 @@ def createGraph():
         data = csv.reader(f)
         next(data)
         for row in data:
-            stops[int(row[1])].neighbours.append(Edge(int(row[1]), int(row[3]), int(row[4])))
+            graph[int(row[1])].neighbours.append(Edge(int(row[1]), int(row[3]), int(row[4])))
             pathDurationsDict[(int(row[1]), int(row[3]))] = int(row[4])
 
-    return stops
-
-stops = createGraph()
-distTo = []
-parent = []
-pq = minpq()
-
-for i in range(len(stops)):
-    distTo.append(float("inf"))
-    parent.append(None)
+def initialiseGraph():
+    for i in range(len(graph)):
+        distTo.append(float("inf"))
+        parent.append(None)
 
 def relax(edge):
     stop1 = edge.stop1
@@ -69,7 +66,7 @@ def searchPath(startID, endID):
         if stopID == endID:
             break
 
-        for edge in stops[stopID].neighbours:
+        for edge in graph[stopID].neighbours:
             relax(edge)
 
 def shortestPath(startID, endID):
@@ -85,3 +82,12 @@ def shortestPath(startID, endID):
         totalDur -= stopDurationsDict[end]
     path.reverse()
     return path, totalDur
+
+# readData()
+# print(graph)
+# initialiseGraph()
+# searchPath(2, 27)
+# print(shortestPath(2, 27))
+
+# def genBusServices(path):
+
