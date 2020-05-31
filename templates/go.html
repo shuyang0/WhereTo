@@ -1,12 +1,35 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="title">Shuttle Bus from {{start}} to {{end}} will take {{mins}} minutes and {{secs}} seconds<div/>
-    <div id="route">
-        <ol>
-            {% for stop in path %}
-                <li>{{stop}}</li>
-            {% endfor %}
-        </ol>
-    </div>
+    <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
+    {% if same %}
+        <div class="subtitle">Congratulations! You are already at <span class="bold">{{start}}</span>!<div/>
+    {% else %}
+        <div class="subtitle">Shuttle Bus from <span class="bold">{{start}}</span> to <span class="bold">{{end}}</span> will take <span class="bold">{{mins}} minutes {{secs}} seconds</span><div/>
+        <div class="route">
+            <ol>
+                {% for stop in bus_path %}
+                    <li>Take
+                        <span class = "bold">{{stop[1][0]}}</span> 
+                        {% for bus in stop[1][1:] %}
+                            / <span class = "bold">{{bus}}</span>
+                        {% endfor %}
+                        to <span class = "bold">{{stop[0]}}</span>
+                        <ul>
+                            {% for val in stop[2] %}
+                                <li>{{val}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                        
+                {% endfor %}
+            </ol>
+        </div>
+        
+        <form action="{{ url_for('home') }}">
+            <div class="form-group">
+                <button class="btn btn-primary">Back</button>
+            </div>
+        </form>
+    {% endif %}
 {% endblock %}

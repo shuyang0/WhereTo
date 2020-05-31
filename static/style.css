@@ -1,7 +1,7 @@
 body{
-	background-color: rgb(33, 41, 64) !important;
-	font-family:calibri, san-serif !important;
-	color: white !important;
+	background-color: rgb(33, 41, 64);
+	font-family:calibri, san-serif ;
+	color: white;
 }
 
 .title{
@@ -11,6 +11,12 @@ body{
 }
 
 .subtitle{
+	text-align: center;
+	padding: 10px;
+	font-size: 35px;
+}
+
+.description{
 	text-align: center;
 	padding: 10px;
 	font-size: 18px;
@@ -23,18 +29,29 @@ body{
 	font-size: 30px;
 }
 
+.route{
+	text-align: left;
+	padding: 10px;
+	padding-left: 30px;
+	font-size: 30px;
+}
+
+.bold{
+	font-weight: bold;
+}
+
 button{
-	width: 70px;
-	height: 50px;
-	font-size:25px !important;
+	width: 80px;
+	height: 60px;
+	font-size:30px !important;
 }
 
 .form-group{
-	padding-left: 30px !important;
-	padding-right: 30px !important;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 
 .form-control{
-	height: 50px !important;
-	font-size: 20px !important;
+	height: 50px;
+	font-size: 25px;
 }

@@ -21,9 +21,11 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+
+readData()
+
 @app.route("/")
 def home():
-	readData()
 	return render_template("home.html", graph = graph)
 
 @app.route("/go",  methods =['POST'])
@@ -32,10 +34,10 @@ def go():
 	end_id = int(request.form.get("end"))
 	start_name = stopNamesDict[start_id]
 	end_name = stopNamesDict[end_id]
-	initialiseGraph()
-	searchPath(start_id, end_id)
-	path, totalDur = shortestPath(start_id, end_id)
-	mins = totalDur // 60
-	secs = totalDur % 60
-	# return str(path)
-	return render_template("go.html", start = start_name, end = end_name, mins = mins, secs = secs, path = path)
+	if start_id == end_id:
+		return render_template("go.html", start = start_name, end = end_name, same = True)
+	else:
+		path, totalDur, bus_path = dijkstra(start_id, end_id)
+		mins = totalDur // 60
+		secs = totalDur % 60
+		return render_template("go.html", start = start_name, end = end_name, mins = mins, secs = secs, path = path, bus_path = bus_path, same = False)

@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="title">Welcome to NUS WhereTo!<div/>
-    <div class="subtitle">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development. </div>
-    <div class="subtitle">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features! </div>
+    <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
+    <div class="description">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development. </div>
+    <div class="description">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features! </div>
 
-    <img src = "{{url_for('static', filename='poster.png')}}" width = 50%>
+    <img src = "{{url_for('static', filename='poster.png')}}" width = 75%>
 
     <form action="{{ url_for('go') }}" method="post">
         <div class = "choose"> Choose starting point </div>
