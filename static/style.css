@@ -4,6 +4,18 @@ body{
 	color: white;
 }
 
+@media(min-width: 1500px){
+	img{
+	width:50%;
+	}
+}
+
+@media(max-width: 1499px){
+	img{
+	width:75%;
+	}
+}
+
 .title{
 	text-align: center;
 	padding: 15px;
