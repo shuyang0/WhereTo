@@ -11,8 +11,8 @@
         <div class="route">
             <ol>
                 {% for segment in bus_path %}
-                    <li>Take <span class = "bold">{{ segment[1][0] }}</span> to <span class = "bold">{{ segment[0] }} 
-                        ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})</span>
+                    <li>Take <span class = "bold">{{ segment[1][0] }}</span> to <span class = "bold">{{ segment[0] }} </span>
+                        ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})
                         <ul>
                             {% for stop in segment[2] %}
                                 <li>{{ stop }}</li>
