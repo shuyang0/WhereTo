@@ -1,5 +1,4 @@
 import csv
-from queue import PriorityQueue
 from pqdict import minpq
 
 class Stop:
@@ -12,13 +11,13 @@ class Edge:
     def __init__(self, stop1_id, stop2_id, dur):
         self.stop1_id = stop1_id
         self.stop2_id = stop2_id
-        self.dur = dur
+        self.dur = dur 
 
 graph = []
 stopNamesDict = {}
 stopDurationsDict = {}
 pathDurationsDict = {}
-pathServicesDict = {}
+pathServicesDict = {} 
 
 def readData():
     with open("stopdata.csv") as f:
@@ -45,13 +44,16 @@ def getPath(start_id, end_id, parent):
     path_id = []
     path.append(stopNamesDict[end_id])
     path_id.append(end_id)
+
     while end_id != start_id:
         totalDur += pathDurationsDict[(parent[end_id], end_id)] + stopDurationsDict[parent[end_id]]
         end_id = parent[end_id]
         path.append(stopNamesDict[end_id])
         path_id.append(end_id)
+
     if len(path) > 1:
         totalDur -= stopDurationsDict[end_id]
+
     path.reverse()
     path_id.reverse()
     return path, path_id, totalDur
@@ -98,16 +100,17 @@ class Bus_Vert:
 
 def getBus(path_id, start_id, end_id):
     pair_id = []
-    for i in range(len(path_id)-1):
-        pair_id.append((path_id[i], path_id[i+1]))
     bus_graph = {}
+    for i in range(len(path_id) - 1):
+        pair_id.append((path_id[i], path_id[i + 1]))
     for i in range(len(pair_id)):
         stop1_id, stop2_id = pair_id[i][0], pair_id[i][1]
-        for bus in pathServicesDict[stop1_id, stop2_id]:
+        for bus in pathServicesDict[(stop1_id, stop2_id)]:
             bus_graph[Bus_Vert(stop1_id, bus)] = [stop2_id]
-            for j in range(i+1, len(pair_id)):
+            for j in range(i + 1, len(pair_id)):
                 if bus in pathServicesDict[pair_id[j][0], pair_id[j][1]]:
-                    bus_graph[Bus_Vert(stop1_id, bus)].append(pair_id[j][1])
+                    bus_graph[Bus_Vert(stop1_id, bus)].append(pair_id[j][1]) # break?
+
     dist = {}
     parent = {}
     pq = minpq()
@@ -115,23 +118,23 @@ def getBus(path_id, start_id, end_id):
     for val in bus_graph:
         if val.stop_id == start_id:
             pq.additem(val, 0)
-    for val in path_id:
-        dist[val] = (float("inf"))
-        parent[val] = []
-        dist[start_id] = 0
+    for stop_id in path_id:
+        dist[stop_id] = (float("inf"))
+        parent[stop_id] = []
+    dist[start_id] = 0
 
     while len(pq) > 0:
         curr, curr_dist = pq.popitem()
         if curr_dist == dist[curr.stop_id]:
-            for edge in bus_graph[curr]:
-                if dist[edge] > dist[curr.stop_id] + 1:
-                    dist[edge] = dist[curr.stop_id] + 1
-                    parent[edge].append(curr)
+            for dest in bus_graph[curr]:
+                if dist[dest] > dist[curr.stop_id] + 1:
+                    dist[dest] = dist[curr.stop_id] + 1
+                    parent[dest].append(curr)
                     for val in bus_graph:
-                        if val.stop_id == edge:
-                            pq.additem(val, dist[edge])
-                elif dist[edge] == dist[curr.stop_id] + 1:
-                    parent[edge].append(curr)
+                        if val.stop_id == dest:
+                            pq.additem(val, dist[dest])
+                elif dist[dest] == dist[curr.stop_id] + 1:
+                    parent[dest].append(curr)
 
     bus_path = []
     while end_id != start_id:

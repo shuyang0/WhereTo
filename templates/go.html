@@ -2,26 +2,22 @@
 
 {% block body %}
     <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
+
     {% if same %}
         <div class="subtitle">Congratulations! You are already at <span class="bold">{{start}}</span>!<div/>
     {% else %}
         <div class="subtitle">Shuttle Bus from <span class="bold">{{start}}</span> to <span class="bold">{{end}}</span> will take <span class="bold">{{mins}} minutes {{secs}} seconds</span><div/>
+        
         <div class="route">
             <ol>
-                {% for stop in bus_path %}
-                    <li>Take
-                        <span class = "bold">{{stop[1][0]}}</span> 
-                        {% for bus in stop[1][1:] %}
-                            / <span class = "bold">{{bus}}</span>
-                        {% endfor %}
-                        to <span class = "bold">{{stop[0]}}</span>
+                {% for segment in bus_path %}
+                    <li>Take <span class = "bold">{{segment[1][0]}}</span> to <span class = "bold">{{segment[0]}}</span>
                         <ul>
-                            {% for val in stop[2] %}
-                                <li>{{val}}</li>
+                            {% for stop in segment[2] %}
+                                <li>{{stop}}</li>
                             {% endfor %}
                         </ul>
                     </li>
-                        
                 {% endfor %}
             </ol>
         </div>

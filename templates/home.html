@@ -2,13 +2,13 @@
 
 {% block body %}
     <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
-    <div class="description">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development. </div>
-    <div class="description">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features! </div>
+    <div class="description">NUS WhereTo is a navigation app for the NUS Kent Ridge campus. It is currently still under development.</div>
+    <div class="description">Right now, NUS WhereTo can recommend you directions from one shuttle bus stop to another. Stay tuned for more features!</div>
 
-    <img src = "{{url_for('static', filename='poster.png')}}">
+    <img src="{{url_for('static', filename='poster.png')}}">
 
     <form action="{{ url_for('go') }}" method="post">
-        <div class = "choose"> Choose starting point </div>
+        <div class = "choose">Choose starting point</div>
         <div class="form-group">
             <select class="form-control" name="start">
                 {% for stop in graph %}
@@ -17,7 +17,7 @@
             </select>
         </div>
 
-        <div class = "choose"> Choose destination </div>
+        <div class = "choose">Choose destination</div>
         <div class="form-group">
             <select class="form-control" name="end">
                 {% for stop in graph %}
