@@ -4,17 +4,18 @@
     <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
 
     {% if same %}
-        <div class="subtitle">Congratulations! You are already at <span class="bold">{{start}}</span>!<div/>
+        <div class="subtitle">Congratulations! You are already at <span class="bold">{{ start }}</span>!<div/>
     {% else %}
-        <div class="subtitle">Shuttle Bus from <span class="bold">{{start}}</span> to <span class="bold">{{end}}</span> will take <span class="bold">{{mins}} minutes {{secs}} seconds</span><div/>
+        <div class="subtitle">Shuttle Bus from <span class="bold">{{ start }}</span> to <span class="bold">{{ end }}</span> will take <span class="bold">{{mins}} minutes {{secs}} seconds</span><div/>
         
         <div class="route">
             <ol>
                 {% for segment in bus_path %}
-                    <li>Take <span class = "bold">{{segment[1][0]}}</span> to <span class = "bold">{{segment[0]}}</span>
+                    <li>Take <span class = "bold">{{ segment[1][0] }}</span> to <span class = "bold">{{ segment[0] }} 
+                        ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})</span>
                         <ul>
                             {% for stop in segment[2] %}
-                                <li>{{stop}}</li>
+                                <li>{{ stop }}</li>
                             {% endfor %}
                         </ul>
                     </li>

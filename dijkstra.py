@@ -157,4 +157,8 @@ def getBus(path_id, start_id, end_id):
             bus_path[i][2].append(stopNamesDict[path_id[j]])
             i += 1
 
+    for segment in bus_path:
+        segment[2] = segment[2][1:]
+        segment.append(len(segment[2]))
+
     return bus_path
