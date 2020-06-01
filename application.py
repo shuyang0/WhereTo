@@ -36,7 +36,7 @@ def go():
 	if start_id == end_id:
 		return render_template("go.html", start = start_name, end = end_name, same = True)
 	else:
-		path, totalDur, bus_path = dijkstra(start_id, end_id)
+		totalDur, bus_path = dijkstra(start_id, end_id)
 		mins = totalDur // 60
 		secs = totalDur % 60
-		return render_template("go.html", start = start_name, end = end_name, mins = mins, secs = secs, path = path, bus_path = bus_path, same = False)
+		return render_template("go.html", start = start_name, end = end_name, mins = mins, secs = secs, bus_path = bus_path, same = False)

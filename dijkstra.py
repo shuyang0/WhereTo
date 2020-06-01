@@ -85,7 +85,7 @@ def dijkstra(start_id, end_id):
     
     path, path_id, totalDur = getPath(start_id, end_id, parent)
     bus_path = getBus(path_id, start_id, end_id)
-    return path, totalDur, bus_path
+    return totalDur, bus_path
 
 class Bus_Vert:
     def __init__(self, stop_id, bus):
@@ -158,7 +158,6 @@ def getBus(path_id, start_id, end_id):
             i += 1
 
     for segment in bus_path:
-        segment[2] = segment[2][1:]
-        segment.append(len(segment[2]))
+        segment.append(len(segment[2])-1)
 
     return bus_path
