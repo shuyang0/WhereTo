@@ -22,11 +22,12 @@
                 {% endfor %}
             </ol>
         </div>
+    {% endif %}
         
         <form action="{{ url_for('home') }}">
             <div class="form-group">
                 <button class="btn btn-primary">Back</button>
             </div>
         </form>
-    {% endif %}
+    
 {% endblock %}
