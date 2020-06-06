@@ -3,12 +3,205 @@
     <head>
         <title>NUS WhereTo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
     </head>
   
     <body>
         {% block body %}
         {% endblock %}
+
+        <div id='map' class="rounded mx-auto d-block" style='width: 600px; height: 450px;'></div>
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
+            // Check if browser supports Mapbox
+            if (!mapboxgl.supported()) {
+                alert('Your browser does not support Mapbox GL');
+            } else {
+                var map = new mapboxgl.Map({
+                    container: 'map', // container id
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [103.776367, 1.296308], // starting position
+                    zoom: 14 // starting zoom
+                });
+
+                // Prince George's Park
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.780391, 1.291792])
+                    .addTo(map);
+
+                // PGP Hse 15
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.777807, 1.293121])
+                    .addTo(map);
+
+                // TCOMS
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.776531, 1.293716])
+                    .addTo(map);
+
+                // Opp HSSML
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.774952, 1.29278])
+                    .addTo(map);
+                
+                // Opp NUSS
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.772392, 1.293307])
+                    .addTo(map);
+
+                // Ventus (Opp LT13)
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.770589, 1.295303])
+                    .addTo(map);
+
+                // Information Technology
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.77271, 1.297215])
+                    .addTo(map);
+
+                // Opp YIH
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.774189, 1.298976])
+                    .addTo(map);
+
+                // Museum
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.7737, 1.301085])
+                    .addTo(map);
+
+                // University Health Centre
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.776115, 1.298906])
+                    .addTo(map);
+
+                // Opp UHall
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.77812, 1.297487])
+                    .addTo(map);
+
+                // S17
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.781342, 1.297507])
+                    .addTo(map);
+
+                // Opp Kent Ridge MRT
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.785066, 1.293788])
+                    .addTo(map);
+
+                // Kent Ridge MRT
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.784902, 1.293703])
+                    .addTo(map);
+
+                // LT27
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.780956, 1.297366])
+                    .addTo(map);
+
+                // UHall
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.777982, 1.297484])
+                    .addTo(map);
+
+                // Opp University Health Centre
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.775619, 1.298808])
+                    .addTo(map);
+
+                // YIH
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.774375, 1.298906])
+                    .addTo(map);
+
+                // Central Library
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.772543, 1.296588])
+                    .addTo(map);
+
+                // LT13
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.770601, 1.294847])
+                    .addTo(map);
+
+                // AS5
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.771791, 1.293504])
+                    .addTo(map);
+
+                // COM2
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.773763, 1.294301])
+                    .addTo(map);
+
+                // BIZ 2
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.775222, 1.293683])
+                    .addTo(map);
+
+                // Opp TCOMS
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.776972, 1.293755])
+                    .addTo(map);
+
+                // PGP Hse 7
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.777811, 1.293199])
+                    .addTo(map);
+
+                // University Town
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.77446, 1.30363])
+                    .addTo(map);
+
+                // Prince George's Park Residence
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.780949, 1.291004])
+                    .addTo(map);
+
+                // Kent Ridge Bus Terminal
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.76987, 1.294255])
+                    .addTo(map);
+
+                // Raffles Hall
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.772707, 1.300992])
+                    .addTo(map);
+
+                // EA
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.770164, 1.300606])
+                    .addTo(map);
+
+                // The Japanese Primary School
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.76995, 1.300754])
+                    .addTo(map);
+
+                // Kent Vale
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([103.769095, 1.302129])
+                    .addTo(map);
+
+                // Add geolocate control to the map.
+                map.addControl(
+                    new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true
+                        },
+                        trackUserLocation: true
+                    })
+                );
+
+                // REMINDER: need to add popup labels for bus stop names and draw route lines
+            }
+        </script>
+
     </body>
 </html>

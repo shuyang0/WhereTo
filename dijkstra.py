@@ -23,7 +23,7 @@ def readData():
     with open("stopdata.csv") as f:
         data = csv.reader(f)
         next(data)
-        for stop_id, stop_name, stop_dur in data:
+        for stop_id, stop_name, stop_dur, stop_lng, stop_lat in data:
             stop_id, stop_dur = int(stop_id), int(stop_dur)
             graph.append(Stop(stop_id, stop_name))
             stopNamesDict[stop_id] = stop_name

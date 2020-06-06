@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
     <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
 
     {% if same %}
@@ -23,10 +24,10 @@
         </div>
     {% endif %}
         
-        <form action="{{ url_for('home') }}">
-            <div class="form-group">
-                <button class="btn btn-primary">Back</button>
-            </div>
-        </form>
-    
+    <form action="{{ url_for('home') }}">
+        <div class="form-group">
+            <button class="btn btn-primary">Back</button>
+        </div>
+    </form>
+
 {% endblock %}
