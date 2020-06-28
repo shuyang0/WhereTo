@@ -1,19 +1,24 @@
 body{
-	background-color: rgb(33, 41, 64);
-	font-family:calibri, san-serif ;
+	background-color: rgb(0, 61, 124);
+	font-family:"cambria", san-serif ;
 	color: white;
 }
 
 @media(min-width: 1500px){
 	img{
-	width:50%;
+		width:50%;
 	}
 }
 
 @media(max-width: 1499px){
 	img{
-	width:75%;
+		width:75%;
 	}
+}
+
+#map{
+	width:95% !important;
+	height:65vh !important;
 }
 
 .title{
@@ -22,11 +27,6 @@ body{
 	font-size: 50px;
 }
 
-.subtitle{
-	text-align: center;
-	padding: 10px;
-	font-size: 35px;
-}
 
 .description{
 	text-align: center;
@@ -36,15 +36,20 @@ body{
 
 .choose{
 	text-align: left;
-	padding: 15px;
+	padding: 10px;
 	padding-left: 30px;
-	font-size: 30px;
+	font-size: 25px;
+}
+
+.direction{
+	text-align: center;
+	padding: 30px;
+	font-size: 35px;
 }
 
 .route{
 	text-align: left;
-	padding: 10px;
-	padding-left: 30px;
+	padding: 30px;
 	font-size: 30px;
 }
 
@@ -52,9 +57,15 @@ body{
 	font-weight: bold;
 }
 
+.italic{
+	font-style: italic;
+}
+
+.orange{
+	color: rgb(239, 124, 0);
+}
+
 button{
-	width: 80px;
-	height: 60px;
 	font-size:30px !important;
 }
 
@@ -64,6 +75,6 @@ button{
 }
 
 .form-control{
-	height: 50px;
-	font-size: 25px;
+	height: 45px;
+	font-size: 23px;
 }

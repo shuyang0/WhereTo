@@ -1,6 +1,6 @@
 import os, csv
 
-from flask import Flask, session, render_template, request
+from flask import Flask, session, render_template, request, json
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -25,7 +25,10 @@ readData()
 
 @app.route("/")
 def home():
-	return render_template("home.html", graph = graph)
+	graph2 = []
+	for stop in graph:
+		graph2.append([stop.id, stop.name, stop.lat, stop.lng])
+	return render_template("home.html", graph = graph2)
 
 @app.route("/go",  methods =['POST'])
 def go():

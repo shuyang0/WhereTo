@@ -2,9 +2,11 @@ import csv
 from pqdict import minpq
 
 class Stop:
-    def __init__(self, id, name):
+    def __init__(self, id, name, lat, lng):
         self.id = id
         self.name = name
+        self.lat = lat
+        self.lng = lng
         self.neighbours = []
 
 class Edge:
@@ -23,9 +25,9 @@ def readData():
     with open("stopdata.csv") as f:
         data = csv.reader(f)
         next(data)
-        for stop_id, stop_name, stop_dur, stop_lng, stop_lat in data:
-            stop_id, stop_dur = int(stop_id), int(stop_dur)
-            graph.append(Stop(stop_id, stop_name))
+        for stop_id, stop_name, stop_dur, stop_lat, stop_lng in data:
+            stop_id, stop_dur, stop_lat, stop_lng = int(stop_id), int(stop_dur), float(stop_lat), float(stop_lng)
+            graph.append(Stop(stop_id, stop_name, stop_lat, stop_lng))
             stopNamesDict[stop_id] = stop_name
             stopDurationsDict[stop_id] = stop_dur
 

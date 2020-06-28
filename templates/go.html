@@ -2,20 +2,18 @@
 
 {% block body %}
 
-    <div class="title"><span class="bold">Welcome to NUS WhereTo!</span><div/>
-
     {% if same %}
-        <div class="subtitle">Congratulations! You are already at <span class="bold">{{ start }}</span>!<div/>
+        <div class="direction">Congratulations! You are already at <span class="bold">{{ start }}</span>!<div/>
     {% else %}
-        <div class="subtitle">Shuttle Bus from <span class="bold">{{ start }}</span> to <span class="bold">{{ end }}</span> will take <span class="bold">{{mins}} minutes {{secs}} seconds</span><div/>
+        <div class="direction">Shuttle Bus from <span class="italic">{{ start }}</span> to <span class="italic">{{ end }}</span> will take {{mins}} minutes {{secs}} seconds<div/>
         
         <div class="route">
             <ol>
                 {% for segment in bus_path %}
-                    <li>Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "bold">{{ segment[2][0] }} </span> and alight at <span class="bold">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})
+                    <li>Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "italic">{{ segment[2][0] }} </span> and alight at <span class="italic">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})
                         <ul>
                             {% for stop in segment[2][1:] %}
-                                <li>{{ stop }}</li>
+                                <li><span class = "italic">{{ stop }}</span></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -26,7 +24,7 @@
         
     <form action="{{ url_for('home') }}">
         <div class="form-group">
-            <button class="btn btn-primary">Back</button>
+            <button class="btn btn-primary"><span>Back</span></button>
         </div>
     </form>
 
