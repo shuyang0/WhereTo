@@ -1,4 +1,4 @@
-Stop ID,Stop Name,Stop Duration,Longitude ,Latitude 
+Stop ID,Stop Name,Stop Duration,Longitude,Latitude
 0,Prince George's Park,420,103.780391,1.291792
 1,PGP Hse 15,30,103.777807,1.293121
 2,TCOMS,30,103.776531,1.293716
@@ -26,8 +26,8 @@ Stop ID,Stop Name,Stop Duration,Longitude ,Latitude
 24,PGP Hse 7,30,103.777811,1.293199
 25,University Town,45,103.77446,1.30363
 26,Prince George's Park Residence,30,103.780949,1.291004
-27,Kent Ridge Bus Terminal ,600,103.76987,1.294255
-28,Raffles Hall ,30,103.772707,1.300992
+27,Kent Ridge Bus Terminal,600,103.76987,1.294255
+28,Raffles Hall,30,103.772707,1.300992
 29,EA,30,103.770164,1.300606
 30,The Japanese Primary School,30,103.76995,1.300754
-31,Kent Vale ,30,103.769095,1.302129
+31,Kent Vale,30,103.769095,1.302129
