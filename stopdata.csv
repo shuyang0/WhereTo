@@ -4,7 +4,7 @@ Stop ID,Stop Name,Stop Duration,Latitude,Longtitude
 2,TCOMS,30,1.29355,103.77704
 3,Opp HSSML,30,1.29294,103.77513
 4,Opp NUSS,30,1.29325,103.77238
-5,Ventus(Opp LT13),30,1.29535,103.77057
+5,Ventus (Opp LT13),30,1.29535,103.77057
 6,Information Technology,30,1.29720,103.77269
 7,Opp YIH,30,1.29889,103.77412
 8,Museum,30,1.30116,103.77346
@@ -29,5 +29,5 @@ Stop ID,Stop Name,Stop Duration,Latitude,Longtitude
 27,Kent Ridge Bus Terminal,600,1.29427,103.76965
 28,Raffles Hall,30,1.30096,103.77275
 29,EA,30,1.30061,103.77020
-30,The Japanese Primary School,30,1.30076,103.76991
+30,Japanese Primary School,30,1.30076,103.76991
 31,Kent Vale,30,1.30182,103.76961
