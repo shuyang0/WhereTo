@@ -27,7 +27,6 @@ body{
 	font-size: 50px;
 }
 
-
 .description{
 	text-align: center;
 	padding: 10px;
@@ -53,6 +52,12 @@ body{
 	font-size: 30px;
 }
 
+.mapboxgl-popup {
+	color:black;
+	font-size: 18px;
+	font-family: "cambria", san-serif
+}
+
 .bold{
 	font-weight: bold;
 }
@@ -65,13 +70,14 @@ body{
 	color: rgb(239, 124, 0);
 }
 
-button{
+.btn-primary{
 	font-size:30px !important;
 }
 
 .form-group{
 	padding-left: 30px;
 	padding-right: 30px;
+
 }
 
 .form-control{

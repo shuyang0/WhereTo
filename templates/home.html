@@ -20,6 +20,7 @@
             for (stop of graph_js){
             	var marker = new mapboxgl.Marker()
                 	.setLngLat([stop[3], stop[2]])
+                    .setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop[1]))
                 	.addTo(map);
             }
 
@@ -33,7 +34,7 @@
                 })
             );
             // REMINDER: need to add popup labels for bus stop names and draw route lines
-        }
+        } // do not remove this close bracket
     </script>
 
     <form action="{{ url_for('go') }}" method="post">
@@ -56,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary"><span>Go!</span></button>
+            <button class="btn btn-primary">Go!</button>
         </div>    
     </form>
 
