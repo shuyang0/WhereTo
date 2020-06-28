@@ -34,7 +34,7 @@ def readData():
     with open("routedata.csv") as f:
         data = csv.reader(f)
         next(data)
-        for stop1_name, stop1_id, stop2_name, stop2_id, path_dur, services in data:
+        for stop1_name, stop1_id, stop2_name, stop2_id, path_dur, services, coords in data:
             stop1_id, stop2_id, path_dur = int(stop1_id), int(stop2_id), int(path_dur)
             graph[stop1_id].neighbours.append(Edge(stop1_id, stop2_id, path_dur))
             pathDurationsDict[(stop1_id, stop2_id)] = path_dur
