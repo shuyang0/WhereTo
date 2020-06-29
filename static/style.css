@@ -19,13 +19,15 @@ body{
 #map_home, #map_go{
 	width:95% !important;
 	height:65vh !important;
-	margin:20px !important;
+	margin-left: 2.5%;
+	margin-top:20px;
+
 
 }
 
 .title{
 	text-align: center;
-	padding: 15px;
+	padding: 10px;
 	font-size: 50px;
 }
 
@@ -37,20 +39,16 @@ body{
 
 .choose{
 	text-align: left;
-	padding: 10px;
+	margin-top:10px;
 	padding-left: 30px;
 	font-size: 25px;
 }
 
 .direction{
-	text-align: center;
-	padding: 30px;
-	font-size: 35px;
-}
-
-.route{
 	text-align: left;
-	padding: 30px;
+	margin-top:20px;
+	padding: 10px;
+	padding-left: 2.5%;
 	font-size: 30px;
 }
 
@@ -74,15 +72,72 @@ body{
 
 .btn-primary{
 	font-size:30px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
 }
 
 .form-group{
 	padding-left: 30px;
 	padding-right: 30px;
-
+	margin-bottom: 0px !important;
 }
 
 .form-control{
 	height: 45px;
 	font-size: 23px;
+}
+
+.collapsible {
+	background-color: #eee;
+	color: black;
+	cursor: pointer;
+	padding: 10px;
+	margin-top: 5px;
+	width: 95%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 25px;
+}
+
+.collapsible:hover {
+	background-color: #ccc;
+}
+
+.collapsible_content {
+	width: 95%;
+	padding: 0 40px;
+	margin-left: 2.5%;
+	color: black;
+	font-size:22px;
+	background-color: white;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+
+.collapsible_item{
+	text-align: left;
+	padding: 2px;
+}
+
+.collapsible_item:before {
+	content: '\20DD';
+	color: rgb(239, 124, 0);
+	font-size: 20px;
+	margin:5px;
+}
+
+.collapsible:after {
+  content: '\02795'; 
+  font-size: 20px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; 
 }

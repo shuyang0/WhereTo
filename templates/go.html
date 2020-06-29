@@ -3,7 +3,7 @@
 {% block body %}
 
     {% if same %}
-        <div class="direction">Congratulations! You are already at <span class="italic">{{ coord[0] }}</span>!<div/>
+        <div class="direction">Congratulations! You are already at <span class="italic">{{ coord[0] }}</span>!</div>
         <div id='map_home' class="rounded mx-auto d-block"></div>
 	    <script>
 	        mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
@@ -17,10 +17,10 @@
 	                container: 'map_home', // container id
 	                style: 'mapbox://styles/mapbox/streets-v11',
 	                center: [coord_js[2], coord_js[1]], // starting position
-	                zoom: 18 // starting zoom
+	                zoom: 17 // starting zoom
 	            });
 	           
-                var marker = new mapboxgl.Marker()
+                var marker = new mapboxgl.Marker({color:'#db5c21'})
                     .setLngLat([coord_js[2], coord_js[1]])
                     .setPopup(new mapboxgl.Popup({closeButton:false}).setText(coord_js[0]))
                     .addTo(map);
@@ -43,21 +43,36 @@
 
 
     {% else %}
-        <div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes {{secs}} seconds<div/>
+        <div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes {{secs}} seconds</div>
         
-        <div class="route">
-            <ol>
-                {% for segment in bus_path %}
-                    <li>Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "italic">{{ segment[2][0] }} </span> and alight at <span class="italic">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})
-                        <ul>
-                            {% for stop in segment[2][1:] %}
-                                <li><span class = "italic">{{ stop }}</span></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            </ol>
-        </div>
+       	{% for segment in bus_path %}
+	        <button type="button" class="collapsible">Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "italic">{{ segment[2][0] }} </span> and alight at <span class="italic">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})</button>
+
+	        <div class="collapsible_content">
+	            {% for stop in segment[2][1:-1] %}
+	                <div class = "collapsible_item">{{ stop }}</div>
+	            {% endfor %}
+	            <div class = "collapsible_item"><span class = "italic">{{ segment[2][-1] }}</span></div>
+	        </div>
+		{% endfor %}
+
+
+		<script type="text/javascript">
+			var coll = document.getElementsByClassName("collapsible");
+			var i;
+
+			for (i = 0; i < coll.length; i++) {
+			  coll[i].addEventListener("click", function() {
+			    this.classList.toggle("active");
+			    var content = this.nextElementSibling;
+			    if (content.style.maxHeight){
+			      content.style.maxHeight = null;
+			    } else {
+			      content.style.maxHeight = content.scrollHeight + "px";
+			    } 
+			  });
+			} 
+		</script>
 
 		<div id="map_go"></div>
 		<script>
@@ -143,6 +158,10 @@
 				map.addControl(new mapboxgl.FullscreenControl());
 			}
 		</script>
+
+
+
+
 
     {% endif %}
 
