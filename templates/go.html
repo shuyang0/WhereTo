@@ -94,6 +94,7 @@
 					.addTo(map);
 
 				var path_coord_js = {{path_coord|tojson}};
+
 				map.on('load', function() {
 					map.addSource('route', {
 						'type': 'geojson',
@@ -106,30 +107,31 @@
 							}
 						}
 					});
-					map.addLayer({
-						'id': 'route',
-						'type': 'line',
-						'source': 'route',
-						'layout': {
-							'line-join': 'round',
-							'line-cap': 'round'
-						},
-						'paint': {
-							'line-color': '#888',
-							'line-width': 8
-						}
+
+				map.addLayer({
+					'id': 'route',
+					'type': 'line',
+					'source': 'route',
+					'layout': {
+						'line-join': 'round',
+						'line-cap': 'round'
+					},
+					'paint': {
+						'line-color': '#888',
+						'line-width': 8
+					}
 					});
 				});
 
 				// Add geolocate control to the map.
-					map.addControl(
-						new mapboxgl.GeolocateControl({
-							positionOptions: {
-								enableHighAccuracy: true
-							},
-							trackUserLocation: true
-						})
-					);
+				map.addControl(
+					new mapboxgl.GeolocateControl({
+						positionOptions: {
+							enableHighAccuracy: true
+						},
+						trackUserLocation: true
+					})
+				);
 			}
 		</script>
 
