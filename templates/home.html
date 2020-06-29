@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div id='map' class="rounded mx-auto d-block"></div>
+    
+    <div id='map_home' class="rounded mx-auto d-block"></div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
         // Check if browser supports Mapbox
@@ -10,18 +11,18 @@
         } 
         else {
             var map = new mapboxgl.Map({
-                container: 'map', // container id
+                container: 'map_home', // container id
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [103.77673,1.29759], // starting position
                 zoom: 15 // starting zoom
             });
-            var graph_js = {{graph|tojson}};
+            var stopArr_js = {{stopArr|tojson}};
             var stop;
-            for (stop of graph_js){
-            	var marker = new mapboxgl.Marker()
-                	.setLngLat([stop[3], stop[2]])
+            for (stop of stopArr_js){
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([stop[3], stop[2]])
                     .setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop[1]))
-                	.addTo(map);
+                    .addTo(map);
             }
 
             // Add geolocate control to the map.
@@ -33,16 +34,16 @@
                     trackUserLocation: true
                 })
             );
-            // REMINDER: need to add popup labels for bus stop names and draw route lines
         } // do not remove this close bracket
     </script>
+    
 
     <form action="{{ url_for('go') }}" method="post">
         <div class = "choose">Choose starting point</div>
         <div class="form-group">
             <select class="form-control" name="start">
-                {% for stop in graph %}
-                    <option value="{{ stop[0] }}">{{ stop[1] }}</option>
+                {% for stop in stopDict %}
+                    <option value="{{ stop }}">{{ stopDict[stop]['name'] }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -50,8 +51,8 @@
         <div class = "choose">Choose destination</div>
         <div class="form-group">
             <select class="form-control" name="end">
-                {% for stop in graph %}
-                    <option value="{{ stop[0] }}">{{ stop[1] }}</option>
+                {% for stop in stopDict %}
+                    <option value="{{ stop }}">{{ stopDict[stop]['name'] }}</option>
                 {% endfor %}
             </select>
         </div>
