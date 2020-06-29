@@ -41,6 +41,8 @@ def go():
 		path_id,bus_path,totalDur = dijkstra(start_id, end_id)
 		mins = totalDur // 60
 		secs = totalDur % 60
+		if secs >= 30:
+			mins += 1
 		stop_coord = []
 		for stop in path_id:
 			stop_coord.append([stopDict[stop]['name'],stopDict[stop]['lat'], stopDict[stop]['lng']])
@@ -50,4 +52,4 @@ def go():
 			for curr_coord in curr_coords[1:]:
 				path_coord.append([float(curr_coord.split('/')[1]),float(curr_coord.split('/')[0])])
 
-		return render_template("go.html", mins = mins, secs = secs, stop_coord = stop_coord, path_coord = path_coord, bus_path = bus_path, same = False)
+		return render_template("go.html", mins = mins, stop_coord = stop_coord, path_coord = path_coord, bus_path = bus_path, same = False)
