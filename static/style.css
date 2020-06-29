@@ -16,9 +16,11 @@ body{
 	}
 }
 
-#map{
+#map_home, #map_go{
 	width:95% !important;
 	height:65vh !important;
+	margin:20px !important;
+
 }
 
 .title{
