@@ -25,6 +25,10 @@
             <button class="btn btn-primary">Go!</button>
         </div>    
     </form>
+
+    <h4>
+        <small class="font-italic"><br>Unsure where you are? Click on the location icon in the top right corner to find the bus stop that is nearest to you!</small>
+    </h4>
     
     <div id='map_home' class="rounded mx-auto d-block"></div>
     <script>
@@ -38,7 +42,7 @@
                 container: 'map_home', // container id
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [103.77673,1.29759], // starting position
-                zoom: 15 // starting zoom
+                zoom: 14 // starting zoom
             });
 
             var stopArr_js = {{ stopArr| tojson}};

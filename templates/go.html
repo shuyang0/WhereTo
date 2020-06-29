@@ -43,7 +43,11 @@
 
 
     {% else %}
-        <div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes {{secs}} seconds</div>
+		<div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes {{secs}} seconds</div>
+		<h5>
+			<small class="font-italic">Note: The current estimated time does not take into account bus waiting times. This feature will
+			be rolled out in a subsequent update.<br></small>
+		</h5>
         
        	{% for segment in bus_path %}
 	        <button type="button" class="collapsible">Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "italic">{{ segment[2][0] }} </span> and alight at <span class="italic">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})</button>
