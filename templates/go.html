@@ -71,19 +71,27 @@
 				});
 
 				var stop_coord_js = {{stop_coord|tojson}};
-				var i;
-				for (i = 0; i < stop_coord_js.length - 1; i++){
+				// Start point marker is green
+				var marker = new mapboxgl.Marker({ color: '#40ab22' })
+						.setLngLat([stop_coord_js[0][2], stop_coord_js[0][1]])
+						.setPopup(new mapboxgl.Popup({ closeButton: false })
+						.setText(stop_coord_js[stop_coord_js.length - 1][0]))
+						.addTo(map);
+
+				for (i = 1; i < stop_coord_js.length - 1; i++){
 					var marker = new mapboxgl.Marker()
 						.setLngLat([stop_coord_js[i][2], stop_coord_js[i][1]])
-						.setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop_coord_js[i][0]))
+						.setPopup(new mapboxgl.Popup({closeButton:false})
+						.setText(stop_coord_js[i][0]))
 						.addTo(map);
 				}
-
+				
+				// Destination marker is red
 				var marker = new mapboxgl.Marker({color:'#db5c21'})
 					.setLngLat([stop_coord_js[stop_coord_js.length-1][2], stop_coord_js[stop_coord_js.length-1][1]])
-					.setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop_coord_js[stop_coord_js.length-1][0]))
+					.setPopup(new mapboxgl.Popup({closeButton:false})
+					.setText(stop_coord_js[stop_coord_js.length-1][0]))
 					.addTo(map);
-
 
 				var path_coord_js = {{path_coord|tojson}};
 				map.on('load', function() {
