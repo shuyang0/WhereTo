@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request, json
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from dijkstra import readData, dijkstra, stopDict
+from dijkstra import readData, dijkstra, stopDict, routeDict
 
 app = Flask(__name__)
 
@@ -44,4 +44,10 @@ def go():
 		stop_coord = []
 		for stop in path_id:
 			stop_coord.append([stopDict[stop]['name'],stopDict[stop]['lat'], stopDict[stop]['lng']])
-		return render_template("go.html", mins = mins, secs = secs, stop_coord = stop_coord, bus_path = bus_path, same = False)
+		path_coord = [[stopDict[start_id]['lng'],stopDict[start_id]['lat']]]
+		for i in range(len(path_id)-1):
+			curr_coords = routeDict[(path_id[i], path_id[i+1])]['coord']
+			for curr_coord in curr_coords[1:]:
+				path_coord.append([float(curr_coord.split('/')[1]),float(curr_coord.split('/')[0])])
+
+		return render_template("go.html", mins = mins, secs = secs, stop_coord = stop_coord, path_coord = path_coord, bus_path = bus_path, same = False)
