@@ -3,7 +3,7 @@
 {% block body %}
 
     {% if same %}
-        <div class="direction">Congratulations! You are already at <span class="italic">{{ start_name }}</span>!<div/>
+        <div class="direction">Congratulations! You are already at <span class="italic">{{ coord[0] }}</span>!<div/>
         <div id='map_home' class="rounded mx-auto d-block"></div>
 	    <script>
 	        mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
@@ -16,12 +16,12 @@
 	            var map = new mapboxgl.Map({
 	                container: 'map_home', // container id
 	                style: 'mapbox://styles/mapbox/streets-v11',
-	                center: [coord_js[1], coord_js[2]], // starting position
+	                center: [coord_js[2], coord_js[1]], // starting position
 	                zoom: 18 // starting zoom
 	            });
 	           
                 var marker = new mapboxgl.Marker()
-                    .setLngLat([coord_js[1], coord_js[2]])
+                    .setLngLat([coord_js[2], coord_js[1]])
                     .setPopup(new mapboxgl.Popup({closeButton:false}).setText(coord_js[0]))
                     .addTo(map);
 	            // Add geolocate control to the map.
@@ -36,7 +36,7 @@
 	        } // do not remove this close bracket
 	    </script>
     {% else %}
-        <div class="direction">Shuttle Bus from <span class="italic">{{ start }}</span> to <span class="italic">{{ end }}</span> will take {{mins}} minutes {{secs}} seconds<div/>
+        <div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes {{secs}} seconds<div/>
         
         <div class="route">
             <ol>
@@ -58,9 +58,20 @@
 		    var map = new mapboxgl.Map({
 		        container: 'map_go',
 		        style: 'mapbox://styles/mapbox/streets-v11',
-		        center: [-122.486052, 37.830348],
+		        center: [103.77673,1.29759],
 		        zoom: 15
 		    });
+
+		    var stop_coord_js = {{stop_coord|tojson}};
+            var stop;
+            for (stop of stop_coord_js){
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([stop[2], stop[1]])
+                    .setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop[0]))
+                    .addTo(map);
+            }
+
+
 
 		    map.on('load', function() {
 		        map.addSource('route', {
