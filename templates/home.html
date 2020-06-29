@@ -40,14 +40,64 @@
                 center: [103.77673,1.29759], // starting position
                 zoom: 14 // starting zoom
             });
-            var stopArr_js = {{stopArr|tojson}};
-            var stop;
+
+            var stopArr_js = {{ stopArr| tojson}};
+
+            // map.on('load', function () {
+            //     for (stop of stopArr_js) {
+            //         map.addSource('points', {
+            //             'type': 'geojson',
+            //             'data': {
+            //                 'type': 'FeatureCollection',
+            //                 'features': [
+            //                     {
+            //                         'type': 'Feature',
+            //                         'properties': {},
+            //                         'geometry': {
+            //                             'type': 'Point',
+            //                             'coordinates': [
+            //                                 stop[3], stop[2]
+            //                             ]
+            //                         }
+            //                     },
+            //                 ]
+            //             }
+            //         });
+            //     }
+
+            //     // Add a symbol layer.
+            //     map.addLayer({
+            //     	'id': 'symbols',
+            //     	'type': 'symbol',
+            //     	'source': 'points',
+            //     	'layout': {
+            //     		'icon-image': 'rocket-15'
+            //     	}
+            //     });
+
+            // });
+
             for (stop of stopArr_js){
                 var marker = new mapboxgl.Marker()
                     .setLngLat([stop[3], stop[2]])
                     .setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop[1]))
                     .addTo(map);
             }
+
+            // // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
+			// map.on('click', 'symbols', function (e) {
+			// 	map.flyTo({ center: e.features[0].geometry.coordinates });
+			// });
+
+			// // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
+			// map.on('mouseenter', 'symbols', function () {
+			// 	map.getCanvas().style.cursor = 'pointer';
+			// });
+
+			// // Change it back to a pointer when it leaves.
+			// map.on('mouseleave', 'symbols', function () {
+			// 	map.getCanvas().style.cursor = '';
+			// });
 
             // Add geolocate control to the map.
             map.addControl(
@@ -58,6 +108,10 @@
                     trackUserLocation: true
                 })
             );
+
+            // Fullscreen option
+            map.addControl(new mapboxgl.FullscreenControl());
+
         } // do not remove this close bracket
     </script>
     

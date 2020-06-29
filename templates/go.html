@@ -34,6 +34,10 @@
 	                    trackUserLocation: true
 	                })
 	            );
+
+				// Fullscreen option
+				map.addControl(new mapboxgl.FullscreenControl());
+
 	        } // do not remove this close bracket
 	    </script>
 
@@ -63,19 +67,20 @@
 			if (!mapboxgl.supported()) {
 				alert('Your browser does not support Mapbox GL');
 			} else {
+				var stop_coord_js = {{ stop_coord | tojson}};
+
 				var map = new mapboxgl.Map({
 					container: 'map_go',
 					style: 'mapbox://styles/mapbox/streets-v11',
-					center: [103.77673,1.29759],
+					center: [stop_coord_js[0][2], stop_coord_js[0][1]],
 					zoom: 15
 				});
 
-				var stop_coord_js = {{stop_coord|tojson}};
 				// Start point marker is green
 				var marker = new mapboxgl.Marker({ color: '#40ab22' })
 						.setLngLat([stop_coord_js[0][2], stop_coord_js[0][1]])
 						.setPopup(new mapboxgl.Popup({ closeButton: false })
-						.setText(stop_coord_js[stop_coord_js.length - 1][0]))
+						.setText(stop_coord_js[0][0]))
 						.addTo(map);
 
 				for (i = 1; i < stop_coord_js.length - 1; i++){
@@ -108,19 +113,20 @@
 						}
 					});
 
-				map.addLayer({
-					'id': 'route',
-					'type': 'line',
-					'source': 'route',
-					'layout': {
-						'line-join': 'round',
-						'line-cap': 'round'
-					},
-					'paint': {
-						'line-color': '#888',
-						'line-width': 8
-					}
+					map.addLayer({
+						'id': 'route',
+						'type': 'line',
+						'source': 'route',
+						'layout': {
+							'line-join': 'round',
+							'line-cap': 'round'
+						},
+						'paint': {
+							'line-color': '#888',
+							'line-width': 8
+						}
 					});
+
 				});
 
 				// Add geolocate control to the map.
@@ -132,6 +138,9 @@
 						trackUserLocation: true
 					})
 				);
+				
+				// Fullscreen option
+				map.addControl(new mapboxgl.FullscreenControl());
 			}
 		</script>
 
