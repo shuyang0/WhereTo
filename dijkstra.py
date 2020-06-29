@@ -139,6 +139,3 @@ def getBus(path_id, start_id, end_id):
         segment.append(len(segment[2])-1)
 
     return bus_path
-
-readData()
-print(dijkstra('1','15'))
