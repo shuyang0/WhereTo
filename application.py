@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request, json
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from dijkstra import readData, dijkstra_bus, dijkstra_walk, stopDict, routeDict
+from dijkstra import readData, dijkstra_bus, dijkstra_walk, stopDict, routeDict, nodeDict
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def home():
 	stopArr = []
 	for stop in stopDict:
 		stopArr.append([stop, stopDict[stop]['name'], stopDict[stop]['lat'], stopDict[stop]['lng']])
-	return render_template("home.html", stopDict = stopDict, stopArr = stopArr)
+	return render_template("home.html", stopDict = stopDict, stopArr = stopArr, nodeDict = nodeDict)
 
 @app.route("/go",  methods =['POST'])
 def go():

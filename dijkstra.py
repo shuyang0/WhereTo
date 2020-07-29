@@ -22,7 +22,7 @@ def readData():
         next(data)
         for node_id, node_name, node_lat, node_lng, node_type, node_neigh in data:
             if node_type == 'Bus Stop':
-                node_name = node_name + ' Bus Stop'
+                node_name = node_name + ' (Bus Stop)'
             node_lat, node_lng =  float(node_lat), float(node_lng)
             curr = {'name':node_name, 'lat': node_lat, 'lng': node_lng, 'type': node_type, 'neighbours': node_neigh.split('/')}
             nodeDict[node_id] = curr
@@ -210,5 +210,7 @@ def getBus(path_id, start_id, end_id):
 
     return bus_path
 
-#readData()
+# readData()
 #print(dijkstra_walk('101','600'))
+# print(stopDict)
+# print(nodeDict)
