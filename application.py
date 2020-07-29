@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request, json
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from dijkstra import readData, dijkstra, stopDict, routeDict
+from dijkstra import readData, dijkstra_bus, dijkstra_walk, stopDict, routeDict
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def go():
 		coord = [stopDict[start_id]['name'], stopDict[start_id]['lat'], stopDict[start_id]['lng']]
 		return render_template("go.html", coord = coord,  same = True)
 	else:
-		path_id,bus_path,totalDur = dijkstra(start_id, end_id)
+		path_id,bus_path,totalDur = dijkstra_bus(start_id, end_id)
 		mins = totalDur // 60
 		secs = totalDur % 60
 		if secs >= 30:
