@@ -28,7 +28,7 @@ def home():
 	stopArr = []
 	for stop in stopDict:
 		stopArr.append([stop, stopDict[stop]['name'], stopDict[stop]['lat'], stopDict[stop]['lng']])
-	return render_template("home.html", stopDict = stopDict, stopArr = stopArr)
+	return render_template("home.html", stopDict = stopDict, stopArr = stopArr, nodeDict = nodeDict)
 
 @app.route("/go",  methods =['POST'])
 def go():
