@@ -348,7 +348,13 @@ def getBus(path_id, start_id, end_id):
         bus_path[i] = [['bus', dur, len(bus_path[i][2]) - 1], bus_path[i][2], bus_path[i][1]]
     return bus_path
 
-readData()
-print(dijkstra_bus('1', '31'))
+# readData()
+# print(dijkstra_walk('600', '400'))
 
+# walk_route, dur = dijkstra_walk('600', '400')
+# node_coord = []
+# for node_id in walk_route:
+# 	node_coord.append([nodeDict[node_id]['name'],
+#                     nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
+# print(node_coord)
 

@@ -91,4 +91,21 @@ def go_bus():
 
 @app.route("/go_walk",  methods=['POST'])
 def go_walk():
-	return render_template("go_walk.html")
+	start_id = request.form.get("start")
+	end_id = request.form.get("end")
+	if start_id == end_id:
+		coord = [nodeDict[start_id]['name'], nodeDict[start_id]['lat'], nodeDict[start_id]['lng']]
+		return render_template("go_walk.html", coord=coord,  same=True)
+	else:
+		walk_route, dur = dijkstra_walk(start_id, end_id)
+
+		node_coord = []
+		for node_id in walk_route:
+			node_coord.append([nodeDict[node_id]['name'], nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
+
+		mins = dur // 60
+		secs = dur % 60
+		if secs >= 30:
+			mins += 1
+
+		return render_template("go_walk.html", mins=int(mins), same=False, nodeDict=nodeDict, node_coord=node_coord)
