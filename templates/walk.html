@@ -2,13 +2,13 @@
 
 {% block body %}
 
-    <form action="{{ url_for('go') }}" method="post">
+    <form action="{{ url_for('go_walk') }}" method="post">
         <div class="choose">Choose starting point:</div>
         <div class="form-group">
             <select class="selectpicker show-tick" name="start" data-live-search="true"
                 data-header="Choose starting point:">
                 {% for node in nodeDict %}
-                    {% if nodeDict[node]['type'] != 'Road' %}
+                    {% if nodeDict[node]['type'] == 'Building' %}
                         <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
                     {% endif %}
                 {% endfor %}
@@ -19,7 +19,7 @@
         <div class="form-group">
             <select class="selectpicker show-tick" name="end" data-live-search="true" data-header="Choose starting point:">
                 {% for node in nodeDict %}
-                    {% if nodeDict[node]['type'] != 'Road' %}
+                    {% if nodeDict[node]['type'] == 'Building' %}
                         <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
                     {% endif %}
                 {% endfor %}

@@ -23,33 +23,59 @@ db = scoped_session(sessionmaker(bind=engine))
 
 readData()
 
+# Default mode is bus + walking
 @app.route("/")
 def home():
+	nodeArr = []
+	for node in nodeDict:
+		if nodeDict[node]['type'] != 'Road':
+			nodeArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+	return render_template("home.html", nodeArr=nodeArr, nodeDict=nodeDict)
+
+@app.route("/walk")
+def walk():
+	nodeArr = []
+	for node in nodeDict:
+		if nodeDict[node]['type'] == 'Building':
+			nodeArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+	return render_template("walk.html", nodeArr = nodeArr, nodeDict = nodeDict)
+
+@app.route("/bus")
+def bus():
 	stopArr = []
 	for stop in stopDict:
 		stopArr.append([stop, stopDict[stop]['name'], stopDict[stop]['lat'], stopDict[stop]['lng']])
-	return render_template("home.html", stopDict = stopDict, stopArr = stopArr, nodeDict = nodeDict)
+	return render_template("bus.html", stopDict=stopDict, stopArr=stopArr)
 
 @app.route("/go",  methods =['POST'])
 def go():
+	return render_template("go.html")
+
+
+@app.route("/go_bus",  methods =['POST'])
+def go_bus():
 	start_id = request.form.get("start")
 	end_id = request.form.get("end")
 	if start_id == end_id:
 		coord = [stopDict[start_id]['name'], stopDict[start_id]['lat'], stopDict[start_id]['lng']]
-		return render_template("go.html", coord = coord,  same = True)
+		return render_template("go.html", coord=coord,  same=True)
 	else:
-		path_id,bus_path,totalDur = dijkstra_bus(start_id, end_id)
+		path_id, bus_path, totalDur = dijkstra_bus(start_id, end_id)
 		mins = totalDur // 60
 		secs = totalDur % 60
 		if secs >= 30:
 			mins += 1
 		stop_coord = []
 		for stop in path_id:
-			stop_coord.append([stopDict[stop]['name'],stopDict[stop]['lat'], stopDict[stop]['lng']])
-		path_coord = [[stopDict[start_id]['lng'],stopDict[start_id]['lat']]]
+			stop_coord.append([stopDict[stop]['name'], stopDict[stop]['lat'], stopDict[stop]['lng']])
+			path_coord = [[stopDict[start_id]['lng'], stopDict[start_id]['lat']]]
 		for i in range(len(path_id)-1):
 			curr_coords = routeDict[(path_id[i], path_id[i+1])]['coord']
 			for curr_coord in curr_coords[1:]:
-				path_coord.append([float(curr_coord.split('/')[1]),float(curr_coord.split('/')[0])])
+				path_coord.append([float(curr_coord.split('/')[1]), float(curr_coord.split('/')[0])])
 
-		return render_template("go.html", mins = mins, stop_coord = stop_coord, path_coord = path_coord, bus_path = bus_path, same = False)
+		return render_template("go_bus.html", mins=mins, stop_coord=stop_coord, path_coord=path_coord, bus_path=bus_path, same=False)
+
+@app.route("/go_walk",  methods=['POST'])
+def go_walk():
+	return render_template("go_walk.html")
