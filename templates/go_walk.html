@@ -44,12 +44,12 @@
 {% else %}
 
     <div class="direction">Walking from <span class="italic">{{ node_coord[0][0] }}</span> to <span
-            class="italic">{{ node_coord[-1][0] }}</span> will take {{mins}} minutes.</div> 
+            class="italic">{{ node_coord[-1][0] }}</span> will take {{mins}} minutes ({{ dist }} km).</div> 
             <!-- add distance -->
 
 
     <button type="button" class="collapsible">
-        Walking directions:
+        <span class="italic">Click to expand walking directions</span>
     </button>
 
     <div class="collapsible_content">
@@ -100,12 +100,22 @@
                     .setText(node_coord_js[0][0]))
                 .addTo(map);
 
+            for (i = 1; i < node_coord_js.length - 1; i++) {
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([node_coord_js[i][2], node_coord_js[i][1]])
+                    .setPopup(new mapboxgl.Popup({ closeButton: false })
+                        .setText(node_coord_js[i][0]))
+                    .addTo(map);
+            }
+
             // Destination marker is red
             var marker = new mapboxgl.Marker({ color: '#db5c21' })
                 .setLngLat([node_coord_js[node_coord_js.length - 1][2], node_coord_js[node_coord_js.length - 1][1]])
                 .setPopup(new mapboxgl.Popup({ closeButton: false })
                     .setText(node_coord_js[node_coord_js.length - 1][0]))
                 .addTo(map);
+
+            var path_coord_js = {{ path_coord | tojson }};
 
             map.on('load', function () {
                 map.addSource('route', {
@@ -115,7 +125,7 @@
                         'properties': {},
                         'geometry': {
                             'type': 'LineString',
-                            'coordinates': node_coord_js
+                            'coordinates': path_coord_js
                         }
                     }
                 });

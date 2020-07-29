@@ -1,6 +1,6 @@
 import csv
 from pqdict import minpq
-from math import cos, asin, sqrt, pi
+import math
 
 #note: all stop_id, start_id, end_id etc are str, not int
 
@@ -46,11 +46,20 @@ def readData():
             routeDict[(stop1_id,stop2_id)] = curr
 
 
-#walking speed taken as 1.4m/s
-def distance(lat1, lng1, lat2, lng2):
-    p = pi/180
-    a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((lng2-lng1)*p))/2
-    return 1000 * 12742 * asin(sqrt(a))
+def haversine(lat1, lng1, lat2, lng2):
+    # distance between latitudes and longitudes
+    dLat = (lat2 - lat1) * math.pi / 180.0
+    dLng = (lng2 - lng1) * math.pi / 180.0
+
+    # convert to radians
+    lat1 = (lat1) * math.pi / 180.0
+    lat2 = (lat2) * math.pi / 180.0
+
+    # apply formulae
+    a = pow(math.sin(dLat / 2), 2) + pow(math.sin(dLng / 2), 2) * math.cos(lat1) * math.cos(lat2)
+    radius = 6371
+    c = 2 * math.asin(math.sqrt(a))
+    return radius * c * 1000
 
 #walking speed taken as 1.4m/s
 def walk_time(dist):
@@ -115,7 +124,7 @@ def dijkstra_walk(start_id, end_id):
                 break
             for neigh in nodeDict[curr_id]['neighbours']:
                 neigh_lat, neigh_lng = nodeDict[neigh]['lat'], nodeDict[neigh]['lng']
-                dist_apart = walk_time(distance(curr_lat, curr_lng, neigh_lat, neigh_lng))
+                dist_apart = walk_time(haversine(curr_lat, curr_lng, neigh_lat, neigh_lng))
                 if distTo[neigh] > distTo[curr_id] + dist_apart:
                     distTo[neigh] = distTo[curr_id] + dist_apart
                     parent[neigh] = curr_id
@@ -162,7 +171,7 @@ def dijkstra_combined(start_id, end_id):
                 break
             for neigh in nodeDict[curr_id]['neighbours']:
                 neigh_lat, neigh_lng = nodeDict[neigh]['lat'], nodeDict[neigh]['lng']
-                dist_apart = walk_time(distance(curr_lat, curr_lng, neigh_lat, neigh_lng))
+                dist_apart = walk_time(haversine(curr_lat, curr_lng, neigh_lat, neigh_lng))
                 if distTo[neigh] > distTo[curr_id] + dist_apart:
                     distTo[neigh] = distTo[curr_id] + dist_apart
                     parent[neigh] = (curr_id, 'walk')
@@ -203,7 +212,7 @@ def dijkstra_combined(start_id, end_id):
         else:
             dur = 0
             for i in range(len(segment[1])-1):
-                dur += walk_time(distance(nodeDict[segment[1][i]]['lat'], nodeDict[segment[1][i]]['lng'], nodeDict[segment[1][i+1]]['lat'], nodeDict[segment[1][i+1]]['lng']))
+                dur += walk_time(haversine(nodeDict[segment[1][i]]['lat'], nodeDict[segment[1][i]]['lng'], nodeDict[segment[1][i+1]]['lat'], nodeDict[segment[1][i+1]]['lng']))
             path.append([['walk',dur],segment[1]])   
     return path
 
@@ -348,8 +357,8 @@ def getBus(path_id, start_id, end_id):
         bus_path[i] = [['bus', dur, len(bus_path[i][2]) - 1], bus_path[i][2], bus_path[i][1]]
     return bus_path
 
-# readData()
-# print(dijkstra_walk('600', '400'))
+readData()
+print(dijkstra_walk('600', '400'))
 
 # walk_route, dur = dijkstra_walk('600', '400')
 # node_coord = []
@@ -357,4 +366,7 @@ def getBus(path_id, start_id, end_id):
 # 	node_coord.append([nodeDict[node_id]['name'],
 #                     nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
 # print(node_coord)
+
+
+
 

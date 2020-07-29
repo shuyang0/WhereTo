@@ -71,7 +71,7 @@ def go_bus():
 		stop_coord = []
 		for stop_id in bus_route:
 			stop_coord.append([stopDict[stop_id]['name'], stopDict[stop_id]['lat'], stopDict[stop_id]['lng']])
-			path_coord = [[stopDict[start_id]['lng'], stopDict[start_id]['lat']]]
+		path_coord = [[stopDict[start_id]['lng'], stopDict[start_id]['lat']]]
 		for i in range(len(bus_route)-1):
 			curr_coords = routeDict[(bus_route[i], bus_route[i+1])]['coord']
 			for curr_coord in curr_coords[1:]:
@@ -100,12 +100,15 @@ def go_walk():
 		walk_route, dur = dijkstra_walk(start_id, end_id)
 
 		node_coord = []
+		path_coord = []
 		for node_id in walk_route:
 			node_coord.append([nodeDict[node_id]['name'], nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
+			path_coord.append([nodeDict[node_id]['lng'], nodeDict[node_id]['lat']])
 
+		dist = round(dur * 1.4 / 1000, 2)
 		mins = dur // 60
 		secs = dur % 60
 		if secs >= 30:
 			mins += 1
 
-		return render_template("go_walk.html", mins=int(mins), same=False, nodeDict=nodeDict, node_coord=node_coord)
+		return render_template("go_walk.html", mins=int(mins), same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord, dist=dist)
