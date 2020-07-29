@@ -12,11 +12,8 @@ routeDict = {}
 
 nodeDict = {}
 
-
-#parse data from csv into stopDict and routeDict
+#parse data from csv files into stopDict and routeDict
 def readData():
-
-
     with open("nodedata.csv") as f:
         data = csv.reader(f)
         next(data)
@@ -211,6 +208,7 @@ def getBus(path_id, start_id, end_id):
     return bus_path
 
 # readData()
+# print(buildingNames)
 #print(dijkstra_walk('101','600'))
 # print(stopDict)
 # print(nodeDict)

@@ -4,7 +4,9 @@
 
     <select class="selectpicker show-tick" data-live-search="true" data-header="Choose starting point:">
         {% for node in nodeDict %}
-            <option value="{{ node }}">{{ nodeDict[node]['name'] }}</option>
+            {% if nodeDict[node]['type'] != 'Road' %}
+                <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
+            {% endif %}
         {% endfor %}
     </select>
 
