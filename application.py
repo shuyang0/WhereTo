@@ -26,19 +26,22 @@ readData()
 # Default mode is bus + walking
 @app.route("/")
 def home():
-	nodeArr = []
+	buildingArr = []
+	stopArr = []
 	for node in nodeDict:
-		if nodeDict[node]['type'] != 'Road':
-			nodeArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
-	return render_template("home.html", nodeArr=nodeArr, nodeDict=nodeDict)
+		if nodeDict[node]['type'] == 'Building':
+			buildingArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+		if nodeDict[node]['type'] == 'Bus Stop':
+			stopArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+	return render_template("home.html", nodeDict=nodeDict, buildingArr = buildingArr, stopArr = stopArr)
 
 @app.route("/walk")
 def walk():
-	nodeArr = []
+	buildingArr = []
 	for node in nodeDict:
 		if nodeDict[node]['type'] == 'Building':
-			nodeArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
-	return render_template("walk.html", nodeArr = nodeArr, nodeDict = nodeDict)
+			buildingArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+	return render_template("walk.html", nodeDict=nodeDict, buildingArr = buildingArr)
 
 @app.route("/bus")
 def bus():
