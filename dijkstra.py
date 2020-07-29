@@ -358,7 +358,7 @@ def getBus(path_id, start_id, end_id):
     return bus_path
 
 readData()
-print(dijkstra_walk('600', '400'))
+print(dijkstra_combined('600', '400'))
 
 # walk_route, dur = dijkstra_walk('600', '400')
 # node_coord = []

@@ -45,15 +45,13 @@
 
     <div class="direction">Walking from <span class="italic">{{ node_coord[0][0] }}</span> to <span
             class="italic">{{ node_coord[-1][0] }}</span> will take {{mins}} minutes ({{ dist }} km).</div> 
-            <!-- add distance -->
-
 
     <button type="button" class="collapsible">
         <span class="italic">Click to expand walking directions</span>
     </button>
 
     <div class="collapsible_content">
-        {% for node in node_coord %}
+        {% for node in node_coord[1:] %}
             <div class="collapsible_item">{{ node[0] }}</div>
         {% endfor %}
     </div>

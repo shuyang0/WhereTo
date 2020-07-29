@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request, json
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from dijkstra import readData, dijkstra_bus, dijkstra_walk, stopDict, routeDict, nodeDict
+from dijkstra import readData, dijkstra_bus, dijkstra_walk, stopDict, routeDict, nodeDict, dijkstra_combined
 
 app = Flask(__name__)
 
@@ -55,8 +55,47 @@ def bus():
 
 @app.route("/go",  methods =['POST'])
 def go():
-	return render_template("go.html")
+	start_id = request.form.get("start")
+	end_id = request.form.get("end")
+	if start_id == end_id:
+		coord = [nodeDict[start_id]['name'], nodeDict[start_id]['lat'], nodeDict[start_id]['lng']]
+		return render_template("go.html", coord=coord,  same=True)
+	else:
+		segments = dijkstra_combined(start_id, end_id)
 
+		node_coord = [[nodeDict[start_id]['name'], nodeDict[start_id]['lat'], nodeDict[start_id]['lng']]]
+		path_coord = [[nodeDict[start_id]['lng'], nodeDict[start_id]['lat']]]
+		totalMins = 0
+		for segment in segments:
+			dur = segment[0][1]
+
+			if segment[0][0] == 'walk':
+				dist = round(dur * 1.4 / 1000, 2)
+				segment[0].append(dist)
+				
+				for node_id in segment[1]:
+					path_coord.append([nodeDict[node_id]['lng'], nodeDict[node_id]['lat']])
+			else:
+				segment[2] = '/'.join(segment[2])
+				route = segment[1]
+				for i in range(len(route) - 1):
+					curr_coords = routeDict[(route[i], route[i+1])]['coord']
+					for curr_coord in curr_coords[1:]:
+						path_coord.append([float(curr_coord.split('/')[1]), float(curr_coord.split('/')[0])])
+
+			mins = dur // 60
+			secs = dur % 60
+			if secs >= 30:
+				mins += 1
+			totalMins += mins
+			segment[0][1] = int(mins)
+
+			for node_id in segment[1][1:]:
+				node_coord.append([nodeDict[node_id]['name'], nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
+		
+		path_coord.append([nodeDict[end_id]['lng'], nodeDict[end_id]['lat']])
+
+		return render_template("go.html", mins=int(totalMins), segments=segments, same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord)
 
 @app.route("/go_bus",  methods =['POST'])
 def go_bus():
@@ -79,6 +118,7 @@ def go_bus():
 
 		totalMins = 0
 		for segment in segments:
+			segment[2] = '/'.join(segment[2])
 			dur = segment[0][1]
 			mins = dur // 60
 			secs = dur % 60

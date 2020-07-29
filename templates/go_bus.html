@@ -48,7 +48,7 @@
         
 		{% for segment in segments %}
 
-			<button type="button" class="collapsible">Take <span class = "bold">{{segment[2][0]}}</span> at <span class = "italic">{{ stopDict[segment[1][0]]['name'] }} </span>
+			<button type="button" class="collapsible">Take <span class = "bold">{{segment[2]}}</span> at <span class = "italic">{{ stopDict[segment[1][0]]['name'] }} </span>
 				and alight at <span class="italic">{{ stopDict[segment[1][-1]]['name'] }}</span> ({{ segment[0][2] }} stops, {{ segment[0][1] }} minutes)
 			</button>
 
