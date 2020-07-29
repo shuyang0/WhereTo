@@ -349,5 +349,6 @@ def getBus(path_id, start_id, end_id):
     return bus_path
 
 readData()
-print(dijkstra_combined('1','31'))
+print(dijkstra_bus('1', '31'))
+
 

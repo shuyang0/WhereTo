@@ -38,10 +38,13 @@ def home():
 @app.route("/walk")
 def walk():
 	buildingArr = []
+	stopArr = []
 	for node in nodeDict:
 		if nodeDict[node]['type'] == 'Building':
 			buildingArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
-	return render_template("walk.html", nodeDict=nodeDict, buildingArr = buildingArr)
+		if nodeDict[node]['type'] == 'Bus Stop':
+			stopArr.append([node, nodeDict[node]['name'], nodeDict[node]['lat'], nodeDict[node]['lng']])
+	return render_template("walk.html", nodeDict=nodeDict, buildingArr = buildingArr, stopArr = stopArr)
 
 @app.route("/bus")
 def bus():
@@ -61,23 +64,30 @@ def go_bus():
 	end_id = request.form.get("end")
 	if start_id == end_id:
 		coord = [stopDict[start_id]['name'], stopDict[start_id]['lat'], stopDict[start_id]['lng']]
-		return render_template("go.html", coord=coord,  same=True)
+		return render_template("go_bus.html", coord=coord,  same=True)
 	else:
-		path_id, bus_path, totalDur = dijkstra_bus(start_id, end_id)
-		mins = totalDur // 60
-		secs = totalDur % 60
-		if secs >= 30:
-			mins += 1
+		bus_route, segments = dijkstra_bus(start_id, end_id)
+
 		stop_coord = []
-		for stop in path_id:
-			stop_coord.append([stopDict[stop]['name'], stopDict[stop]['lat'], stopDict[stop]['lng']])
+		for stop_id in bus_route:
+			stop_coord.append([stopDict[stop_id]['name'], stopDict[stop_id]['lat'], stopDict[stop_id]['lng']])
 			path_coord = [[stopDict[start_id]['lng'], stopDict[start_id]['lat']]]
-		for i in range(len(path_id)-1):
-			curr_coords = routeDict[(path_id[i], path_id[i+1])]['coord']
+		for i in range(len(bus_route)-1):
+			curr_coords = routeDict[(bus_route[i], bus_route[i+1])]['coord']
 			for curr_coord in curr_coords[1:]:
 				path_coord.append([float(curr_coord.split('/')[1]), float(curr_coord.split('/')[0])])
 
-		return render_template("go_bus.html", mins=mins, stop_coord=stop_coord, path_coord=path_coord, bus_path=bus_path, same=False)
+		totalMins = 0
+		for segment in segments:
+			dur = segment[0][1]
+			mins = dur // 60
+			secs = dur % 60
+			if secs >= 30:
+				mins += 1
+			totalMins += mins
+			segment[0][1] = mins
+
+		return render_template("go_bus.html", mins=totalMins, segments = segments, same=False, stopDict=stopDict, stop_coord=stop_coord, path_coord=path_coord)
 
 @app.route("/go_walk",  methods=['POST'])
 def go_walk():
