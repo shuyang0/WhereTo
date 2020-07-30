@@ -95,10 +95,10 @@
 
             // Start point marker is green
             var marker = new mapboxgl.Marker({ color: '#40ab22' })
-                .setLngLat([103.7804, 1.29181])
-                .setPopup(new mapboxgl.Popup({ closeButton: false })
-                    .setText(node_coord_js[0][0]))
-                .addTo(map);
+                    .setLngLat([node_coord_js[0][2], node_coord_js[0][1]])
+                    .setPopup(new mapboxgl.Popup({ closeButton: false })
+                        .setText(node_coord_js[0][0]))
+                    .addTo(map);
 
             for (i = 1; i < node_coord_js.length - 1; i++) {
                 var marker = new mapboxgl.Marker()
