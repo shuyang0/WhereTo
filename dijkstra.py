@@ -22,7 +22,7 @@ def readData():
         next(data)
         for node_id, node_name, node_lat, node_lng, node_type, node_neigh in data:
             if node_type == 'Bus Stop':
-                node_name = node_name + ' (Bus Stop)'
+                node_name = node_name + ' Bus Stop'
             node_lat, node_lng =  float(node_lat), float(node_lng)
             curr = {'name':node_name, 'lat': node_lat, 'lng': node_lng, 'type': node_type, 'neighbours': node_neigh.split('/')}
             nodeDict[node_id] = curr
@@ -65,7 +65,7 @@ def haversine(lat1, lng1, lat2, lng2):
 
 #walking speed taken as 1.4m/s
 def walk_time(dist):
-    return dist * 1.4
+    return dist / 1.4
 
 #fn to generate shortest bus-only path, giving total path duration and list of stop_id visited in sequence
 def dijkstra_bus(start_id, end_id):

@@ -1,39 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
+    <div class="btn-group">
+        <a href = "walk" class="btn btn-primary">&#128653;</a>
+        <a href = "{{ url_for('home') }}" class="btn btn-primary">&#128653; &#10010; &#128694;</a>
+        <button type="button" class="btn btn-primary, current_type">&#128694;</button>
+
+    </div> 
 
     <form action="{{ url_for('go_walk') }}" method="post">
         <div class="choose">Choose starting point:</div>
-        <div class="form-group">
-            <select class="selectpicker show-tick" name="start" data-live-search="true"
-                data-header="Choose starting point:">
-                {% for node in nodeDict %}
-                    {% if nodeDict[node]['type'] == 'Building' %}
-                        <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
+        <select class="selectpicker show-tick" name="start" data-live-search="true" data-header="Starting Point">
+            {% for node in nodeDict %}
+                {% if nodeDict[node]['type'] == 'Building' %}
+                    <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
 
         <div class="choose">Choose destination:</div>
-        <div class="form-group">
-            <select class="selectpicker show-tick" name="end" data-live-search="true" data-header="Choose starting point:">
-                {% for node in nodeDict %}
-                    {% if nodeDict[node]['type'] == 'Building' %}
-                        <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
+        <select class="selectpicker show-tick" name="end" data-live-search="true" data-header="Destination">
+            {% for node in nodeDict %}
+                {% if nodeDict[node]['type'] == 'Building' %}
+                    <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
 
         <div class="form-group">
-            <button class="btn btn-primary">Go!</button>
+            <button class="btn btn-warning">Go!</button>
         </div>
     </form>
 
-    <h4>
-        <small class="font-italic"><br>Unsure where you are? Click on the location icon in the top right corner!</small>
-    </h4>
+    <div class="hint">Orange markers - bus stops, blue markers - buildings</div>
+    <div class="hint">Click on the location icon in the top right corner to find yourself on the map!</div>
 
     <div id='map_home' class="rounded mx-auto d-block"></div>
     <script>
@@ -46,8 +46,8 @@
             var map = new mapboxgl.Map({
                 container: 'map_home', // container id
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [103.77673, 1.29759], // starting position
-                zoom: 14 // starting zoom
+                center: [103.7771, 1.299869], // starting position
+                zoom: 14.5 // starting zoom
             });
 
             var buildingArr_js = {{ buildingArr| tojson }};

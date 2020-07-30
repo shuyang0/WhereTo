@@ -20,7 +20,7 @@
                     zoom: 17 // starting zoom
                 });
 
-                var marker = new mapboxgl.Marker({ color: '#db5c21' })
+                var marker = new mapboxgl.Marker({ color: '#40ab22' })
                     .setLngLat([coord_js[2], coord_js[1]])
                     .setPopup(new mapboxgl.Popup({ closeButton: false }).setText(coord_js[0]))
                     .addTo(map);
@@ -89,7 +89,7 @@
 
             for (i = 0; i < coll.length; i++) {
                 coll[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
+                    this.classList.toggle("active1");
                     var content = this.nextElementSibling;
                     if (content.style.maxHeight) {
                         content.style.maxHeight = null;
@@ -99,6 +99,8 @@
                 });
             } 
         </script>
+
+        <div class="hint">Red marker - starting point, green marker - destination, blue marker - bus stops</div>
 
         <div id="map_go"></div>
         <script>
@@ -117,8 +119,8 @@
                     zoom: 16
                 });
 
-                // Start point marker is green
-                var marker = new mapboxgl.Marker({ color: '#40ab22' })
+                // Start point marker is red
+                var marker = new mapboxgl.Marker({ color: '#f20505' })
                     .setLngLat([node_coord_js[0][2], node_coord_js[0][1]])
                     .setPopup(new mapboxgl.Popup({ closeButton: false })
                         .setText(node_coord_js[0][0]))
@@ -132,8 +134,8 @@
                         .addTo(map);
                 }
 
-                // Destination marker is red
-                var marker = new mapboxgl.Marker({ color: '#db5c21' })
+                // Destination marker is green
+                var marker = new mapboxgl.Marker({ color: '#40ab22' })
                     .setLngLat([node_coord_js[node_coord_js.length - 1][2], node_coord_js[node_coord_js.length - 1][1]])
                     .setPopup(new mapboxgl.Popup({ closeButton: false })
                         .setText(node_coord_js[node_coord_js.length - 1][0]))
@@ -189,7 +191,7 @@
 
     <form action="{{ url_for('home') }}">
         <div class="form-group">
-            <button class="btn btn-primary">Back</button>
+            <button class="btn btn-warning">Back</button>
         </div>
     </form>
 

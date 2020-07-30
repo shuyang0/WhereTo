@@ -16,19 +16,42 @@ body{
 	}
 }
 
+
+/*CSS for mapbox display*/
 #map_home, #map_go{
 	width:95% !important;
 	height:65vh !important;
 	margin-left: 2.5%;
 	margin-top:20px;
+}
 
+/*CSS for all buttons*/
+.btn-group{
+	width:95%;
+}
 
+.btn-warning{
+	font-size:30px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	background-color:rgb(239, 124, 0) !important;
+}
+
+.btn-primary{
+	font-size:30px !important;
+}
+
+.current_type{
+	background-color:rgb(59, 210, 32) !important;
+	font-size:30px !important;
 }
 
 .title{
 	text-align: center;
 	padding: 10px;
-	font-size: 50px;
+	font-size: 55px;
 }
 
 .description{
@@ -44,12 +67,28 @@ body{
 	font-size: 25px;
 }
 
+.hint{
+	font-size: 15px;
+	padding-right:2.5%;
+	text-align: right;
+	font-style: italic;
+}
+
 .direction{
 	text-align: left;
 	margin-top:20px;
 	padding: 10px;
 	padding-left: 2.5%;
 	font-size: 30px;
+}
+
+.bootstrap-select{
+	width:95% !important;
+}
+
+.bootstrap-select .btn{
+	margin:0px !important;
+	font-size: 20px;
 }
 
 .mapboxgl-popup {
@@ -68,25 +107,6 @@ body{
 
 .orange{
 	color: rgb(239, 124, 0);
-}
-
-.btn-primary{
-	font-size:30px !important;
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
-	padding-left: 10px !important;
-	padding-right: 10px !important;
-}
-
-.form-group{
-	padding-left: 30px;
-	padding-right: 30px;
-	margin-bottom: 0px !important;
-}
-
-.form-control{
-	height: 45px;
-	font-size: 23px;
 }
 
 .collapsible {
@@ -138,6 +158,6 @@ body{
   margin-left: 5px;
 }
 
-.active:after {
+.active1:after {
   content: "\2796"; 
 }
