@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="btn-group">
-        <a href = "walk" class="btn btn-primary">&#128653;</a>
+        <a href = "bus" class="btn btn-primary">&#128653;</a>
         <a href = "{{ url_for('home') }}" class="btn btn-primary">&#128653; &#10010; &#128694;</a>
         <button type="button" class="btn btn-primary, current_type">&#128694;</button>
 
@@ -12,7 +12,7 @@
         <div class="choose">Choose starting point:</div>
         <select class="selectpicker show-tick" name="start" data-live-search="true" data-header="Starting Point">
             {% for node in nodeDict %}
-                {% if nodeDict[node]['type'] == 'Building' %}
+                {% if nodeDict[node]['type'] != 'Road' %}
                     <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
                 {% endif %}
             {% endfor %}
@@ -21,7 +21,7 @@
         <div class="choose">Choose destination:</div>
         <select class="selectpicker show-tick" name="end" data-live-search="true" data-header="Destination">
             {% for node in nodeDict %}
-                {% if nodeDict[node]['type'] == 'Building' %}
+                {% if nodeDict[node]['type'] != 'Road' %}
                     <option value="{{ node }}">{{  nodeDict[node]['name']  }}</option>
                 {% endif %}
             {% endfor %}
