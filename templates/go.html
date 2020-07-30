@@ -45,7 +45,7 @@
     {% else %}
 
         <div class="direction">Travelling from <span class="italic">{{ nodeDict[segments[0][1][0]]['name'] }}</span> to <span
-            class="italic">{{ nodeDict[segments[-1][1][-1]]['name'] }}</span> will take {{mins}} minutes.</div>
+            class="italic">{{ nodeDict[segments[-1][1][-1]]['name'] }}</span> will take {{mins}}.</div>
 
         {% for segment in segments %}
             
@@ -54,7 +54,7 @@
                 <button type="button" class="collapsible">
                     Walk from <span class="italic">{{ nodeDict[segment[1][0]]['name'] }} </span>
                         to <span class="italic">{{ nodeDict[segment[1][-1]]['name'] }}</span> 
-                        ({{ segment[0][2] }} km, {{ segment[0][1] }} minutes)
+                        ({{ segment[0][2] }}, {{ segment[0][1] }})
                 </button>
                 
                 <div class="collapsible_content">
@@ -69,7 +69,7 @@
                     Take <span class="bold">{{segment[2]}}</span> at <span
                         class="italic">{{ nodeDict[segment[1][0]]['name'] }} </span>
                         and alight at <span class="italic">{{ nodeDict[segment[1][-1]]['name'] }}</span> ({{ segment[0][2] }} stops,
-                        {{ segment[0][1] }} minutes)
+                        {{ segment[0][1] }})
                 </button>
                 
                 <div class="collapsible_content">

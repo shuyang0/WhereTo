@@ -66,11 +66,17 @@ def go():
 		node_coord = [[nodeDict[start_id]['name'], nodeDict[start_id]['lat'], nodeDict[start_id]['lng']]]
 		path_coord = [[nodeDict[start_id]['lng'], nodeDict[start_id]['lat']]]
 		totalMins = 0
+
 		for segment in segments:
 			dur = segment[0][1]
 
 			if segment[0][0] == 'walk':
 				dist = round(dur * 1.4 / 1000, 2)
+				if dist < 1:
+					dist = int(dist * 1000)
+					dist = str(dist) + ' m'
+				else:
+					dist = str(dist) + ' km'
 				segment[0].append(dist)
 				
 				for node_id in segment[1]:
@@ -87,15 +93,29 @@ def go():
 			secs = dur % 60
 			if secs >= 30:
 				mins += 1
+			if mins == 0:
+				mins += 1
 			totalMins += mins
-			segment[0][1] = int(mins)
+		
+			mins = int(mins)
+			if mins > 1:
+				mins = str(mins) + ' minutes'
+			else:
+				mins = str(mins) + ' minute'
+			segment[0][1] = mins
 
 			for node_id in segment[1][1:]:
 				node_coord.append([nodeDict[node_id]['name'], nodeDict[node_id]['lat'], nodeDict[node_id]['lng']])
+
+		totalMins = int(totalMins)
+		if totalMins > 1:
+			totalMins = str(totalMins) + ' minutes'
+		else:
+			totalMins = str(totalMins) + ' minute'
 		
 		path_coord.append([nodeDict[end_id]['lng'], nodeDict[end_id]['lat']])
 
-		return render_template("go.html", mins=int(totalMins), segments=segments, same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord)
+		return render_template("go.html", mins=totalMins, segments=segments, same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord)
 
 @app.route("/go_bus",  methods =['POST'])
 def go_bus():
@@ -119,10 +139,13 @@ def go_bus():
 		totalMins = 0
 		for segment in segments:
 			segment[2] = '/'.join(segment[2])
+
 			dur = segment[0][1]
 			mins = dur // 60
 			secs = dur % 60
 			if secs >= 30:
+				mins += 1
+			if mins == 0:
 				mins += 1
 			totalMins += mins
 			segment[0][1] = mins
@@ -146,9 +169,22 @@ def go_walk():
 			path_coord.append([nodeDict[node_id]['lng'], nodeDict[node_id]['lat']])
 
 		dist = round(dur * 1.4 / 1000, 2)
+		if dist < 1:
+			dist = int(dist * 1000)
+			dist = str(dist) + ' m'
+		else:
+			dist = str(dist) + ' km'
+
 		mins = dur // 60
 		secs = dur % 60
 		if secs >= 30:
 			mins += 1
+		if mins == 0:
+			mins += 1
+		mins = int(mins)
+		if mins > 1:
+			mins = str(mins) + ' minutes'
+		else:
+			mins = str(mins) + ' minute'
 
-		return render_template("go_walk.html", mins=int(mins), same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord, dist=dist)
+		return render_template("go_walk.html", mins=mins, same=False, nodeDict=nodeDict, node_coord=node_coord, path_coord=path_coord, dist=dist)
