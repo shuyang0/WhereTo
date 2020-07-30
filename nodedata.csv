@@ -1,5 +1,5 @@
 ﻿ID,Name,Latitude,Longitude,Type,Neighbours
-0,PGP Terminal,1.29181,103.7804,Bus Stop,449
+0,PGP Terminal,1.29183,103.78043,Bus Stop,449
 1,PGP House 15,1.29298,103.7779,Bus Stop,451/454/24
 2,TCOMS,1.29355,103.777,Bus Stop,453/454/451/23
 3,Opp HSSML,1.29294,103.7751,Bus Stop,461/480/479/464
@@ -258,7 +258,7 @@
 446,Kent Ridge Road,1.295186,103.7766,Road,445/477
 447,KR Dr - HMK Tr Junction,1.292144,103.774,Road,448/481/462
 448,Kent Ridge Drive,1.292596,103.7736,Road,436/484/485/481/447/4
-449,Prince George's Park Road,1.291816,103.7804,Road,450/478/489/472/0
+449,Prince George's Park Road,1.29176,103.78035,Road,450/478/489/472/0
 450,Prince George's Park Road,1.292526,103.7795,Road,451/449/473/474
 451,Prince George's Park Road,1.292995,103.7781,Road,454/452/450/2/23/1/24
 452,NUS Enterprise Incubator,1.293169,103.7782,Building,451/24
