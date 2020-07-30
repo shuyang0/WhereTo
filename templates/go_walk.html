@@ -1,1 +1,171 @@
 {% extends "layout.html" %}
+
+{% block body %}
+
+{% if same %}
+    <div class="direction">Congratulations! You are already at <span class="italic">{{ coord[0] }}</span>!</div>
+    <div id='map_home' class="rounded mx-auto d-block"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
+
+        // Check if browser supports Mapbox
+        if (!mapboxgl.supported()) {
+            alert('Your browser does not support Mapbox GL');
+        } else {
+            var coord_js = {{ coord| tojson }};
+            var map = new mapboxgl.Map({
+                container: 'map_home', // container id
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [coord_js[2], coord_js[1]], // starting position
+                zoom: 17 // starting zoom
+            });
+
+            var marker = new mapboxgl.Marker({ color: '#db5c21' })
+                .setLngLat([coord_js[2], coord_js[1]])
+                .setPopup(new mapboxgl.Popup({ closeButton: false }).setText(coord_js[0]))
+                .addTo(map);
+
+            // Add geolocate control to the map.
+            map.addControl(
+                new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true
+                })
+            );
+
+            // Fullscreen option
+            map.addControl(new mapboxgl.FullscreenControl());
+
+        } // do not remove this close bracket
+    </script>
+
+{% else %}
+
+    <div class="direction">Walking from <span class="italic">{{ node_coord[0][0] }}</span> to <span
+            class="italic">{{ node_coord[-1][0] }}</span> will take {{mins}} minutes ({{ dist }} km).</div> 
+
+    <button type="button" class="collapsible">
+        <span class="italic">Click to expand walking directions</span>
+    </button>
+
+    <div class="collapsible_content">
+        {% for node in node_coord[1:] %}
+            <div class="collapsible_item">{{ node[0] }}</div>
+        {% endfor %}
+    </div>
+
+
+    <script type="text/javascript">
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        } 
+    </script>
+
+    <div id="map_go"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
+
+        // Check if browser supports Mapbox
+        if (!mapboxgl.supported()) {
+            alert('Your browser does not support Mapbox GL');
+        } else {
+            var node_coord_js = {{ node_coord | tojson }};
+
+            var map = new mapboxgl.Map({
+                container: 'map_go',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [node_coord_js[0][2], node_coord_js[0][1]],
+                zoom: 16
+            });
+
+            // Start point marker is green
+            var marker = new mapboxgl.Marker({ color: '#40ab22' })
+                .setLngLat([node_coord_js[0][2], node_coord_js[0][1]])
+                .setPopup(new mapboxgl.Popup({ closeButton: false })
+                    .setText(node_coord_js[0][0]))
+                .addTo(map);
+
+            for (i = 1; i < node_coord_js.length - 1; i++) {
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([node_coord_js[i][2], node_coord_js[i][1]])
+                    .setPopup(new mapboxgl.Popup({ closeButton: false })
+                        .setText(node_coord_js[i][0]))
+                    .addTo(map);
+            }
+
+            // Destination marker is red
+            var marker = new mapboxgl.Marker({ color: '#db5c21' })
+                .setLngLat([node_coord_js[node_coord_js.length - 1][2], node_coord_js[node_coord_js.length - 1][1]])
+                .setPopup(new mapboxgl.Popup({ closeButton: false })
+                    .setText(node_coord_js[node_coord_js.length - 1][0]))
+                .addTo(map);
+
+            var path_coord_js = {{ path_coord | tojson }};
+
+            map.on('load', function () {
+                map.addSource('route', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': path_coord_js
+                        }
+                    }
+                });
+
+                map.addLayer({
+                    'id': 'route',
+                    'type': 'line',
+                    'source': 'route',
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    'paint': {
+                        'line-color': '#888',
+                        'line-width': 8
+                    }
+                });
+
+            });
+
+            // Add geolocate control to the map.
+            map.addControl(
+                new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true
+                })
+            );
+
+            // Fullscreen option
+            map.addControl(new mapboxgl.FullscreenControl());
+                    
+                    }
+    </script>
+
+{% endif %}
+
+<form action="{{ url_for('walk') }}">
+    <div class="form-group">
+        <button class="btn btn-primary">Back</button>
+    </div>
+</form>
+
+{% endblock %}

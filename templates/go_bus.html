@@ -42,18 +42,22 @@
 	    </script>
 
 
-    {% else %}
-		<div class="direction">Shuttle Bus from <span class="italic">{{ stop_coord[0][0] }}</span> to <span class="italic">{{ stop_coord[-1][0] }}</span> will take {{mins}} minutes.</div>
+	{% else %}
+
+		<div class="direction">Shuttle Bus from <span class="italic">{{ stopDict[segments[0][1][0]]['name'] }}</span> to <span class="italic">{{ stopDict[segments[-1][1][-1]]['name'] }}</span> will take {{mins}} minutes.</div>
         
-       	{% for segment in bus_path %}
-	        <button type="button" class="collapsible">Take <span class = "bold">{{segment[1][0]}}{% for bus in segment[1][1:] %}/{{bus}}{% endfor %}</span> at <span class = "italic">{{ segment[2][0] }} </span> and alight at <span class="italic">{{ segment[0] }}</span> ({{ segment[3] }} stop{% if segment[3] > 1 %}s{% endif %})</button>
+		{% for segment in segments %}
+
+			<button type="button" class="collapsible">Take <span class = "bold">{{segment[2]}}</span> at <span class = "italic">{{ stopDict[segment[1][0]]['name'] }} </span>
+				and alight at <span class="italic">{{ stopDict[segment[1][-1]]['name'] }}</span> ({{ segment[0][2] }} stops, {{ segment[0][1] }} minutes)
+			</button>
 
 	        <div class="collapsible_content">
-	            {% for stop in segment[2][1:-1] %}
-	                <div class = "collapsible_item">{{ stop }}</div>
+	            {% for stop in segment[1][1:] %}
+	                <div class = "collapsible_item">{{ stopDict[stop]['name'] }}</div>
 	            {% endfor %}
-	            <div class = "collapsible_item"><span class = "italic">{{ segment[2][-1] }}</span></div>
-	        </div>
+			</div>
+			
 		{% endfor %}
 
 
@@ -77,12 +81,12 @@
 		<div id="map_go"></div>
 		<script>
 			mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaXplIiwiYSI6ImNrYXhsdjh0bzA1YnEycnQ5Z3VoMWM0YWQifQ.THTNfZzuDdUesqxUOBpNLw';
-		
+
 			// Check if browser supports Mapbox
 			if (!mapboxgl.supported()) {
 				alert('Your browser does not support Mapbox GL');
 			} else {
-				var stop_coord_js = {{ stop_coord | tojson}};
+				var stop_coord_js = {{ stop_coord | tojson }};
 
 				var map = new mapboxgl.Map({
 					container: 'map_go',
@@ -93,29 +97,29 @@
 
 				// Start point marker is green
 				var marker = new mapboxgl.Marker({ color: '#40ab22' })
-						.setLngLat([stop_coord_js[0][2], stop_coord_js[0][1]])
-						.setPopup(new mapboxgl.Popup({ closeButton: false })
+					.setLngLat([stop_coord_js[0][2], stop_coord_js[0][1]])
+					.setPopup(new mapboxgl.Popup({ closeButton: false })
 						.setText(stop_coord_js[0][0]))
-						.addTo(map);
-
-				for (i = 1; i < stop_coord_js.length - 1; i++){
-					var marker = new mapboxgl.Marker()
-						.setLngLat([stop_coord_js[i][2], stop_coord_js[i][1]])
-						.setPopup(new mapboxgl.Popup({closeButton:false})
-						.setText(stop_coord_js[i][0]))
-						.addTo(map);
-				}
-				
-				// Destination marker is red
-				var marker = new mapboxgl.Marker({color:'#db5c21'})
-					.setLngLat([stop_coord_js[stop_coord_js.length-1][2], stop_coord_js[stop_coord_js.length-1][1]])
-					.setPopup(new mapboxgl.Popup({closeButton:false})
-					.setText(stop_coord_js[stop_coord_js.length-1][0]))
 					.addTo(map);
 
-				var path_coord_js = {{path_coord|tojson}};
+				for (i = 1; i < stop_coord_js.length - 1; i++) {
+					var marker = new mapboxgl.Marker()
+						.setLngLat([stop_coord_js[i][2], stop_coord_js[i][1]])
+						.setPopup(new mapboxgl.Popup({ closeButton: false })
+							.setText(stop_coord_js[i][0]))
+						.addTo(map);
+				}
 
-				map.on('load', function() {
+				// Destination marker is red
+				var marker = new mapboxgl.Marker({ color: '#db5c21' })
+					.setLngLat([stop_coord_js[stop_coord_js.length - 1][2], stop_coord_js[stop_coord_js.length - 1][1]])
+					.setPopup(new mapboxgl.Popup({ closeButton: false })
+						.setText(stop_coord_js[stop_coord_js.length - 1][0]))
+					.addTo(map);
+
+				var path_coord_js = {{ path_coord | tojson}};
+
+				map.on('load', function () {
 					map.addSource('route', {
 						'type': 'geojson',
 						'data': {
@@ -128,21 +132,21 @@
 						}
 					});
 
-					map.addLayer({
-						'id': 'route',
-						'type': 'line',
-						'source': 'route',
-						'layout': {
-							'line-join': 'round',
-							'line-cap': 'round'
-						},
-						'paint': {
-							'line-color': '#888',
-							'line-width': 8
-						}
-					});
-
+				map.addLayer({
+					'id': 'route',
+					'type': 'line',
+					'source': 'route',
+					'layout': {
+						'line-join': 'round',
+						'line-cap': 'round'
+					},
+					'paint': {
+						'line-color': '#888',
+						'line-width': 8
+					}
 				});
+
+			});
 
 				// Add geolocate control to the map.
 				map.addControl(
@@ -153,19 +157,16 @@
 						trackUserLocation: true
 					})
 				);
-				
+
 				// Fullscreen option
 				map.addControl(new mapboxgl.FullscreenControl());
+			
 			}
 		</script>
 
-
-
-
-
     {% endif %}
 
-    <form action="{{ url_for('home') }}">
+    <form action="{{ url_for('bus') }}">
         <div class="form-group">
             <button class="btn btn-primary">Back</button>
         </div>

@@ -82,7 +82,7 @@
             // });
 
             for (stop of stopArr_js){
-                var marker = new mapboxgl.Marker()
+                var marker = new mapboxgl.Marker({ color: '#EF7C00' })
                     .setLngLat([stop[3], stop[2]])
                     .setPopup(new mapboxgl.Popup({closeButton:false}).setText(stop[1]))
                     .addTo(map);
